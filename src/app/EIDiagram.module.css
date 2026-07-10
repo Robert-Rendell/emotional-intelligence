@@ -58,10 +58,25 @@
 
 /* ---- hub ---- */
 
+.hub {
+  cursor: pointer;
+}
+
 .hub circle {
   fill: var(--surface);
   stroke: var(--ink);
   stroke-width: 2.5;
+  transition: stroke-width 0.2s ease, filter 0.2s ease;
+}
+
+.hub:hover circle,
+.hub:focus-visible circle {
+  stroke-width: 4;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--ink) 35%, transparent));
+}
+
+.hub:focus-visible {
+  outline: none;
 }
 
 .hub text {
@@ -69,6 +84,12 @@
   font-weight: 700;
   text-anchor: middle;
   dominant-baseline: middle;
+}
+
+.hubSub {
+  fill: var(--ink-secondary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .hubPulse {
@@ -200,6 +221,10 @@
   animation: modalIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.modalCardWide {
+  max-width: 600px;
+}
+
 @keyframes modalIn {
   from { opacity: 0; transform: translateY(8px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -268,6 +293,58 @@
   color: var(--ink-muted);
   font-size: 0.95rem;
   font-style: italic;
+}
+
+.modalTableWrap {
+  overflow-x: auto;
+}
+
+.iqTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.iqTable th {
+  text-align: left;
+  padding: 0 0.6rem 0.5rem 0;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--ring);
+}
+
+.iqTable td {
+  vertical-align: top;
+  padding: 0.75rem 0.6rem 0.75rem 0;
+  border-bottom: 1px solid var(--ring);
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
+
+.iqTable tr:last-child td {
+  border-bottom: none;
+}
+
+.iqTable td:first-child {
+  width: 6rem;
+  white-space: nowrap;
+}
+
+.iqTable strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.iqTermSubtitle {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+  white-space: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {

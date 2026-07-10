@@ -97,6 +97,21 @@ const TOPICS: Topic[] = [
   },
 ];
 
+const IQ_EQ_ROWS = [
+  {
+    term: "EQ",
+    subtitle: "Emotional Quotient",
+    usedFor:
+      "Measures the ability to recognize, understand, and manage your own emotions, and to read and respond to the emotions of others. Used to navigate relationships, leadership, teamwork, and mental wellbeing.",
+  },
+  {
+    term: "IQ",
+    subtitle: "Intelligence Quotient",
+    usedFor:
+      "Measures cognitive ability — logical reasoning, memory, spatial and verbal skills, and processing speed. Used to predict academic performance, assess analytical aptitude, and screen for learning differences.",
+  },
+];
+
 const VIEW_W = 1200;
 const VIEW_H = 1060;
 const CENTER = { x: VIEW_W / 2, y: VIEW_H / 2 };
@@ -201,27 +216,31 @@ function buildGeometry(): Geometry[] {
   });
 }
 
+type ModalTarget = { kind: "topic"; id: string } | { kind: "hub" };
+
 export default function EIDiagram() {
   const geometry = useMemo(buildGeometry, []);
   const [hoverId, setHoverId] = useState<string | null>(null);
-  const [modalId, setModalId] = useState<string | null>(null);
+  const [modal, setModal] = useState<ModalTarget | null>(null);
   const lastTriggerRef = useRef<SVGElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const modalTopic = TOPICS.find((t) => t.id === modalId) ?? null;
+  const modalTopic = modal?.kind === "topic" ? TOPICS.find((t) => t.id === modal.id) ?? null : null;
+  const isHubModal = modal?.kind === "hub";
+  const modalKey = modal ? (modal.kind === "hub" ? "hub" : modal.id) : null;
 
-  const openModal = (id: string, trigger: SVGElement) => {
+  const openModal = (target: ModalTarget, trigger: SVGElement) => {
     lastTriggerRef.current = trigger;
-    setModalId(id);
+    setModal(target);
   };
 
   const closeModal = () => {
-    setModalId(null);
+    setModal(null);
     lastTriggerRef.current?.focus();
   };
 
   useEffect(() => {
-    if (!modalId) return;
+    if (!modalKey) return;
     closeButtonRef.current?.focus();
     document.body.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
@@ -233,7 +252,7 @@ export default function EIDiagram() {
       window.removeEventListener("keydown", onKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalId]);
+  }, [modalKey]);
 
   return (
     <div className={styles.wrap}>
@@ -292,11 +311,11 @@ export default function EIDiagram() {
               onMouseLeave={() => setHoverId(null)}
               onFocus={() => setHoverId(topic.id)}
               onBlur={() => setHoverId(null)}
-              onClick={(e) => openModal(topic.id, e.currentTarget)}
+              onClick={(e) => openModal({ kind: "topic", id: topic.id }, e.currentTarget)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  openModal(topic.id, e.currentTarget);
+                  openModal({ kind: "topic", id: topic.id }, e.currentTarget);
                 }
               }}
             >
@@ -328,24 +347,42 @@ export default function EIDiagram() {
           );
         })}
 
-        <g className={`${styles.hub} ${styles.hubPulse}`}>
+        <g
+          className={`${styles.hub} ${styles.hubPulse}`}
+          tabIndex={0}
+          role="button"
+          aria-haspopup="dialog"
+          aria-label="Emotional Intelligence (E.Q): compare IQ and EQ"
+          onClick={(e) => openModal({ kind: "hub" }, e.currentTarget)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openModal({ kind: "hub" }, e.currentTarget);
+            }
+          }}
+        >
           <circle cx={CENTER.x} cy={CENTER.y} r={HUB_RADIUS} />
           <text x={CENTER.x} fontSize={30}>
-            <tspan x={CENTER.x} y={CENTER.y - 12}>
+            <tspan x={CENTER.x} y={CENTER.y - 26}>
               Emotional
             </tspan>
-            <tspan x={CENTER.x} y={CENTER.y + 22}>
+            <tspan x={CENTER.x} y={CENTER.y + 8}>
               Intelligence
+            </tspan>
+            <tspan x={CENTER.x} y={CENTER.y + 34} fontSize={17} className={styles.hubSub}>
+              (E.Q)
             </tspan>
           </text>
         </g>
       </svg>
 
-      {modalTopic && (
+      {(modalTopic || isHubModal) && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div
-            className={styles.modalCard}
-            style={{ "--c": `var(${modalTopic.colorVar})` } as CSSProperties}
+            className={`${styles.modalCard} ${isHubModal ? styles.modalCardWide : ""}`}
+            style={
+              modalTopic ? ({ "--c": `var(${modalTopic.colorVar})` } as CSSProperties) : undefined
+            }
             role="dialog"
             aria-modal="true"
             aria-labelledby="ei-modal-title"
@@ -360,14 +397,44 @@ export default function EIDiagram() {
             >
               &times;
             </button>
-            <div className={styles.modalAccent} />
+            {modalTopic && <div className={styles.modalAccent} />}
             <h2 id="ei-modal-title" className={styles.modalTitle}>
-              {modalTopic.label}
+              {isHubModal ? "Emotional Intelligence (E.Q)" : modalTopic!.label}
             </h2>
-            <p className={styles.modalDescription}>{modalTopic.description}</p>
-            <div className={styles.modalBody}>
-              <p className={styles.placeholder}>Content coming soon.</p>
-            </div>
+            {isHubModal ? (
+              <div className={styles.modalTableWrap}>
+                <p className={styles.modalDescription}>
+                  EQ is the foundation for every school of thought and every form of
+                  learning — and possibly even IQ.
+                </p>
+                <table className={styles.iqTable}>
+                  <thead>
+                    <tr>
+                      <th>Measure</th>
+                      <th>Used for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {IQ_EQ_ROWS.map((row) => (
+                      <tr key={row.term}>
+                        <td>
+                          <strong>{row.term}</strong>
+                          <span className={styles.iqTermSubtitle}>{row.subtitle}</span>
+                        </td>
+                        <td>{row.usedFor}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <>
+                <p className={styles.modalDescription}>{modalTopic!.description}</p>
+                <div className={styles.modalBody}>
+                  <p className={styles.placeholder}>Content coming soon.</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
