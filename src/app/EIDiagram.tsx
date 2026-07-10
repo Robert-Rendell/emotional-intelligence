@@ -12,27 +12,6 @@ type Topic = {
 
 const TOPICS: Topic[] = [
   {
-    id: "stretching",
-    label: "Stretching",
-    colorVar: "--c-stretch",
-    description:
-      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
-  },
-  {
-    id: "open-mind",
-    label: "Open mind / Education",
-    colorVar: "--c-openmind",
-    description:
-      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
-  },
-  {
-    id: "empathy",
-    label: "Empathy",
-    colorVar: "--c-empathy",
-    description:
-      "Sensing what other people feel and letting that understanding shape how you respond to them.",
-  },
-  {
     id: "regulation",
     label: "Emotional Regulation & Zones of Regulation",
     colorVar: "--c-regulation",
@@ -40,11 +19,11 @@ const TOPICS: Topic[] = [
       "Frameworks and tools for recognizing which emotional zone you're in and steering back toward balance.",
   },
   {
-    id: "sport-science",
-    label: "Sport Science / Biology / Neurochemicals of Happiness",
-    colorVar: "--c-sport",
+    id: "empathy",
+    label: "Empathy",
+    colorVar: "--c-empathy",
     description:
-      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
+      "Sensing what other people feel and letting that understanding shape how you respond to them.",
   },
   {
     id: "morality",
@@ -61,11 +40,39 @@ const TOPICS: Topic[] = [
       "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
   },
   {
-    id: "awareness",
-    label: "Awareness",
-    colorVar: "--c-awareness",
+    id: "suffering-is-relative",
+    label: "Suffering is Relative",
+    colorVar: "--c-suffering",
     description:
-      "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
+      "Pain and hardship are felt relative to expectation and comparison, not on some fixed, absolute scale.",
+  },
+  {
+    id: "inflated-lifestyle",
+    label: "Inflated Lifestyle",
+    colorVar: "--c-inflated",
+    description:
+      "When spending, comfort, and expectations quietly climb to match income, closing the gap between what you have and what feels like enough.",
+  },
+  {
+    id: "open-mind",
+    label: "Open mind / Education",
+    colorVar: "--c-openmind",
+    description:
+      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
+  },
+  {
+    id: "stretching",
+    label: "Stretching",
+    colorVar: "--c-stretch",
+    description:
+      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
+  },
+  {
+    id: "id-ego-superego",
+    label: "Id - Ego - Superego",
+    colorVar: "--c-idego",
+    description:
+      "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
   },
   {
     id: "concentration",
@@ -75,11 +82,18 @@ const TOPICS: Topic[] = [
       "The capacity to direct attention deliberately and hold it there, even amid distraction.",
   },
   {
-    id: "id-ego-superego",
-    label: "Id - Ego - Superego",
-    colorVar: "--c-idego",
+    id: "awareness",
+    label: "Awareness",
+    colorVar: "--c-awareness",
     description:
-      "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
+      "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
+  },
+  {
+    id: "sport-science",
+    label: "Sport Science / Biology / Neurochemicals of Happiness",
+    colorVar: "--c-sport",
+    description:
+      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
   },
 ];
 
@@ -126,6 +140,12 @@ type Geometry = {
   pathLength: number;
 };
 
+// Rounded to avoid last-digit floating-point drift between the Math library used
+// during server rendering and the one used client-side, which otherwise trips a
+// React hydration mismatch even though the values are visually identical.
+const round = (n: number) => Math.round(n * 100) / 100;
+const roundPoint = (p: { x: number; y: number }) => ({ x: round(p.x), y: round(p.y) });
+
 function buildGeometry(): Geometry[] {
   const count = TOPICS.length;
   return TOPICS.map((topic, i) => {
@@ -135,13 +155,13 @@ function buildGeometry(): Geometry[] {
 
     const lines = wrapLabel(topic.label, 18);
     const longest = Math.max(...lines.map((l) => l.length));
-    const boxW = Math.min(MAX_BOX_W, Math.max(MIN_BOX_W, longest * CHAR_W + PAD_X * 2));
-    const boxH = lines.length * LINE_HEIGHT + PAD_Y * 2;
+    const boxW = round(Math.min(MAX_BOX_W, Math.max(MIN_BOX_W, longest * CHAR_W + PAD_X * 2)));
+    const boxH = round(lines.length * LINE_HEIGHT + PAD_Y * 2);
 
-    const nodeCenter = {
+    const nodeCenter = roundPoint({
       x: CENTER.x + dir.x * ARM_LENGTH,
       y: CENTER.y + dir.y * ARM_LENGTH,
-    };
+    });
 
     // exact distance from node center to its rectangle boundary along -dir (toward hub)
     const halfW = boxW / 2 + 10;
@@ -149,23 +169,23 @@ function buildGeometry(): Geometry[] {
     const denom = Math.max(Math.abs(dir.x) / halfW, Math.abs(dir.y) / halfH);
     const pullback = denom > 0 ? 1 / denom : 0;
 
-    const arrowStart = {
+    const arrowStart = roundPoint({
       x: CENTER.x + dir.x * HUB_RADIUS,
       y: CENTER.y + dir.y * HUB_RADIUS,
-    };
-    const arrowEnd = {
+    });
+    const arrowEnd = roundPoint({
       x: nodeCenter.x - dir.x * pullback,
       y: nodeCenter.y - dir.y * pullback,
-    };
+    });
 
     const perp = { x: -dir.y, y: dir.x };
-    const mid = {
+    const mid = roundPoint({
       x: (arrowStart.x + arrowEnd.x) / 2 + perp.x * CURVE_OFFSET,
       y: (arrowStart.y + arrowEnd.y) / 2 + perp.y * CURVE_OFFSET,
-    };
+    });
 
     const straight = Math.hypot(arrowEnd.x - arrowStart.x, arrowEnd.y - arrowStart.y);
-    const pathLength = straight * 1.12;
+    const pathLength = round(straight * 1.12);
 
     return {
       topic,
