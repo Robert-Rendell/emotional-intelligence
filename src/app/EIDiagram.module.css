@@ -14,6 +14,7 @@
   --c-openmind: #008300;
   --c-overstim: #007da9;
   --c-regulation: #e34948;
+  --c-stretch: #00c3c5;
 
   width: 100%;
   max-width: 1100px;
@@ -41,6 +42,7 @@
     --c-openmind: #008300;
     --c-overstim: #0087b1;
     --c-regulation: #e66767;
+    --c-stretch: #06a3a5;
   }
 }
 
@@ -199,6 +201,110 @@
   font-size: 0.95rem;
 }
 
+/* ---- modal ---- */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 11, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+  animation: fadeIn 0.18s ease both;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modalOverlay {
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalCard {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 16px;
+  border: 1px solid var(--ring);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  padding: 2rem 1.75rem 1.75rem;
+  box-sizing: border-box;
+  animation: modalIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modalAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--c);
+  border-radius: 16px 16px 0 0;
+}
+
+.modalClose {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--ink-secondary);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.modalClose:hover,
+.modalClose:focus-visible {
+  background: var(--ring);
+}
+
+.modalTitle {
+  margin: 0.25rem 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding-right: 1.5rem;
+}
+
+.modalBody {
+  min-height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--ring);
+  border-radius: 10px;
+}
+
+.placeholder {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hubPulse,
   .arrowDraw,
@@ -209,5 +315,9 @@
   .armGroup:hover .nodeGroup,
   .armGroup.active .nodeGroup {
     transition: none;
+  }
+  .modalOverlay,
+  .modalCard {
+    animation: none;
   }
 }

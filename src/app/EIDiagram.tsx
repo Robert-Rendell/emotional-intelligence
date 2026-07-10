@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "./EIDiagram.module.css";
 
 type Topic = {
@@ -12,6 +12,20 @@ type Topic = {
 
 const TOPICS: Topic[] = [
   {
+    id: "stretching",
+    label: "Stretching",
+    colorVar: "--c-stretch",
+    description:
+      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
+  },
+  {
+    id: "open-mind",
+    label: "Open mind / Education",
+    colorVar: "--c-openmind",
+    description:
+      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
+  },
+  {
     id: "empathy",
     label: "Empathy",
     colorVar: "--c-empathy",
@@ -19,11 +33,32 @@ const TOPICS: Topic[] = [
       "Sensing what other people feel and letting that understanding shape how you respond to them.",
   },
   {
+    id: "regulation",
+    label: "Emotional Regulation & Zones of Regulation",
+    colorVar: "--c-regulation",
+    description:
+      "Frameworks and tools for recognizing which emotional zone you're in and steering back toward balance.",
+  },
+  {
+    id: "sport-science",
+    label: "Sport Science / Biology / Neurochemicals of Happiness",
+    colorVar: "--c-sport",
+    description:
+      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
+  },
+  {
     id: "morality",
     label: "Morality",
     colorVar: "--c-morality",
     description:
       "The values and principles that guide judgments of right and wrong, fair and unfair.",
+  },
+  {
+    id: "overstimulation",
+    label: "Overstimulation",
+    colorVar: "--c-overstim",
+    description:
+      "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
   },
   {
     id: "awareness",
@@ -45,34 +80,6 @@ const TOPICS: Topic[] = [
     colorVar: "--c-idego",
     description:
       "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
-  },
-  {
-    id: "sport-science",
-    label: "Sport Science / Biology / Neurochemicals of Happiness",
-    colorVar: "--c-sport",
-    description:
-      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
-  },
-  {
-    id: "open-mind",
-    label: "Open mind / Education",
-    colorVar: "--c-openmind",
-    description:
-      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
-  },
-  {
-    id: "overstimulation",
-    label: "Overstimulation",
-    colorVar: "--c-overstim",
-    description:
-      "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
-  },
-  {
-    id: "regulation",
-    label: "Emotional Regulation & Zones of Regulation",
-    colorVar: "--c-regulation",
-    description:
-      "Frameworks and tools for recognizing which emotional zone you're in and steering back toward balance.",
   },
 ];
 
@@ -177,14 +184,37 @@ function buildGeometry(): Geometry[] {
 export default function EIDiagram() {
   const geometry = useMemo(buildGeometry, []);
   const [hoverId, setHoverId] = useState<string | null>(null);
-  const [pinnedId, setPinnedId] = useState<string | null>(null);
+  const [modalId, setModalId] = useState<string | null>(null);
+  const lastTriggerRef = useRef<SVGElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const activeId = pinnedId ?? hoverId;
-  const activeTopic = TOPICS.find((t) => t.id === activeId) ?? null;
+  const activeTopic = TOPICS.find((t) => t.id === hoverId) ?? null;
+  const modalTopic = TOPICS.find((t) => t.id === modalId) ?? null;
 
-  const select = (id: string) => {
-    setPinnedId((current) => (current === id ? null : id));
+  const openModal = (id: string, trigger: SVGElement) => {
+    lastTriggerRef.current = trigger;
+    setModalId(id);
   };
+
+  const closeModal = () => {
+    setModalId(null);
+    lastTriggerRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (!modalId) return;
+    closeButtonRef.current?.focus();
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalId]);
 
   return (
     <div className={styles.wrap}>
@@ -229,7 +259,7 @@ export default function EIDiagram() {
         </defs>
 
         {geometry.map(({ topic, lines, boxW, boxH, nodeCenter }, i) => {
-          const isActive = activeId === topic.id;
+          const isActive = hoverId === topic.id;
           return (
             <g
               key={topic.id}
@@ -237,17 +267,17 @@ export default function EIDiagram() {
               style={{ "--c": `var(${topic.colorVar})` } as CSSProperties}
               tabIndex={0}
               role="button"
-              aria-pressed={pinnedId === topic.id}
+              aria-haspopup="dialog"
               aria-label={`${topic.label}: ${topic.description}`}
               onMouseEnter={() => setHoverId(topic.id)}
               onMouseLeave={() => setHoverId(null)}
               onFocus={() => setHoverId(topic.id)}
               onBlur={() => setHoverId(null)}
-              onClick={() => select(topic.id)}
+              onClick={(e) => openModal(topic.id, e.currentTarget)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  select(topic.id);
+                  openModal(topic.id, e.currentTarget);
                 }
               }}
             >
@@ -305,9 +335,39 @@ export default function EIDiagram() {
             <p className={styles.panelBody}>{activeTopic.description}</p>
           </>
         ) : (
-          <p className={styles.hint}>Hover or tap a topic to learn more. Click to pin it open.</p>
+          <p className={styles.hint}>Hover or tap a topic to preview it. Click to open it.</p>
         )}
       </div>
+
+      {modalTopic && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div
+            className={styles.modalCard}
+            style={{ "--c": `var(${modalTopic.colorVar})` } as CSSProperties}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ei-modal-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              ref={closeButtonRef}
+              type="button"
+              className={styles.modalClose}
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <div className={styles.modalAccent} />
+            <h2 id="ei-modal-title" className={styles.modalTitle}>
+              {modalTopic.label}
+            </h2>
+            <div className={styles.modalBody}>
+              <p className={styles.placeholder}>Content coming soon.</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
