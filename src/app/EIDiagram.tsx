@@ -188,7 +188,6 @@ export default function EIDiagram() {
   const lastTriggerRef = useRef<SVGElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const activeTopic = TOPICS.find((t) => t.id === hoverId) ?? null;
   const modalTopic = TOPICS.find((t) => t.id === modalId) ?? null;
 
   const openModal = (id: string, trigger: SVGElement) => {
@@ -322,23 +321,6 @@ export default function EIDiagram() {
         </g>
       </svg>
 
-      <div className={styles.panel}>
-        {activeTopic ? (
-          <>
-            <div className={styles.panelHeading}>
-              <span
-                className={styles.swatch}
-                style={{ "--c": `var(${activeTopic.colorVar})` } as CSSProperties}
-              />
-              {activeTopic.label}
-            </div>
-            <p className={styles.panelBody}>{activeTopic.description}</p>
-          </>
-        ) : (
-          <p className={styles.hint}>Hover or tap a topic to preview it. Click to open it.</p>
-        )}
-      </div>
-
       {modalTopic && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div
@@ -362,6 +344,7 @@ export default function EIDiagram() {
             <h2 id="ei-modal-title" className={styles.modalTitle}>
               {modalTopic.label}
             </h2>
+            <p className={styles.modalDescription}>{modalTopic.description}</p>
             <div className={styles.modalBody}>
               <p className={styles.placeholder}>Content coming soon.</p>
             </div>
