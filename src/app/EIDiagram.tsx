@@ -2,8 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "./EIDiagram.module.css";
+import HubModal from "./modals/HubModal";
+import InflatedLifestyleModal from "./modals/InflatedLifestyleModal";
+import SportScienceModal from "./modals/SportScienceModal";
+import DefaultTopicModal from "./modals/DefaultTopicModal";
 
-type Topic = {
+export type Topic = {
   id: string;
   label: string;
   colorVar: string;
@@ -94,21 +98,6 @@ const TOPICS: Topic[] = [
     colorVar: "--c-sport",
     description:
       "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
-  },
-];
-
-const IQ_EQ_ROWS = [
-  {
-    term: "EQ",
-    subtitle: "Emotional Quotient",
-    usedFor:
-      "Measures the ability to recognize, understand, and manage your own emotions, and to read and respond to the emotions of others. Used to navigate relationships, leadership, teamwork, and mental wellbeing.",
-  },
-  {
-    term: "IQ",
-    subtitle: "Intelligence Quotient",
-    usedFor:
-      "Measures cognitive ability — logical reasoning, memory, spatial and verbal skills, and processing speed. Used to predict academic performance, assess analytical aptitude, and screen for learning differences.",
   },
 ];
 
@@ -376,68 +365,29 @@ export default function EIDiagram() {
         </g>
       </svg>
 
-      {(modalTopic || isHubModal) && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div
-            className={`${styles.modalCard} ${isHubModal ? styles.modalCardWide : ""}`}
-            style={
-              modalTopic ? ({ "--c": `var(${modalTopic.colorVar})` } as CSSProperties) : undefined
-            }
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="ei-modal-title"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              ref={closeButtonRef}
-              type="button"
-              className={styles.modalClose}
-              onClick={closeModal}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            {modalTopic && <div className={styles.modalAccent} />}
-            <h2 id="ei-modal-title" className={styles.modalTitle}>
-              {isHubModal ? "Emotional Intelligence (E.Q)" : modalTopic!.label}
-            </h2>
-            {isHubModal ? (
-              <div className={styles.modalTableWrap}>
-                <p className={styles.modalDescription}>
-                  EQ is the foundation for every school of thought and every form of
-                  learning — and possibly even IQ.
-                </p>
-                <table className={styles.iqTable}>
-                  <thead>
-                    <tr>
-                      <th>Measure</th>
-                      <th>Used for</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {IQ_EQ_ROWS.map((row) => (
-                      <tr key={row.term}>
-                        <td>
-                          <strong>{row.term}</strong>
-                          <span className={styles.iqTermSubtitle}>{row.subtitle}</span>
-                        </td>
-                        <td>{row.usedFor}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <>
-                <p className={styles.modalDescription}>{modalTopic!.description}</p>
-                <div className={styles.modalBody}>
-                  <p className={styles.placeholder}>Content coming soon.</p>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      {isHubModal ? (
+        <HubModal onClose={closeModal} closeButtonRef={closeButtonRef} />
+      ) : modalTopic ? (
+        modalTopic.id === "inflated-lifestyle" ? (
+          <InflatedLifestyleModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "sport-science" ? (
+          <SportScienceModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : (
+          <DefaultTopicModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        )
+      ) : null}
     </div>
   );
 }

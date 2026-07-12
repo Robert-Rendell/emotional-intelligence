@@ -75,7 +75,7 @@
   filter: drop-shadow(0 0 10px color-mix(in srgb, var(--ink) 35%, transparent));
 }
 
-.hub:focus-visible {
+.hub:focus {
   outline: none;
 }
 
@@ -168,7 +168,7 @@
   stroke-width: 4;
 }
 
-.armGroup:focus-visible {
+.armGroup:focus {
   outline: none;
 }
 
@@ -207,8 +207,7 @@
 
 .modalCard {
   position: relative;
-  width: 100%;
-  max-width: 440px;
+  width: min(90vw, 720px);
   max-height: 85vh;
   overflow-y: auto;
   background: var(--surface);
@@ -222,7 +221,7 @@
 }
 
 .modalCardWide {
-  max-width: 600px;
+  width: min(90vw, 900px);
 }
 
 @keyframes modalIn {
@@ -295,6 +294,23 @@
   font-style: italic;
 }
 
+.videoWrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.videoWrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .modalTableWrap {
   overflow-x: auto;
 }
@@ -334,6 +350,46 @@
 }
 
 .iqTable strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.neuroTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.neuroTable th {
+  text-align: left;
+  padding: 0 0.6rem 0.5rem 0;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--ring);
+}
+
+.neuroTable td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.6rem 0.75rem 0;
+  border-bottom: 1px solid var(--ring);
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
+
+.neuroTable tr:last-child td {
+  border-bottom: none;
+}
+
+.neuroTable td:first-child {
+  width: 9rem;
+}
+
+.neuroTable strong {
   display: block;
   color: var(--ink);
   font-size: 1rem;
