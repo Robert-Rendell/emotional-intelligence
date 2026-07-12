@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "./EIDiagram.module.css";
 import HubModal from "./modals/HubModal";
+import RegulationModal from "./modals/RegulationModal";
 import InflatedLifestyleModal from "./modals/InflatedLifestyleModal";
 import SportScienceModal from "./modals/SportScienceModal";
+import StretchingModal from "./modals/StretchingModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 export type Topic = {
@@ -368,7 +370,13 @@ export default function EIDiagram() {
       {isHubModal ? (
         <HubModal onClose={closeModal} closeButtonRef={closeButtonRef} />
       ) : modalTopic ? (
-        modalTopic.id === "inflated-lifestyle" ? (
+        modalTopic.id === "regulation" ? (
+          <RegulationModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "inflated-lifestyle" ? (
           <InflatedLifestyleModal
             topic={modalTopic}
             onClose={closeModal}
@@ -376,6 +384,12 @@ export default function EIDiagram() {
           />
         ) : modalTopic.id === "sport-science" ? (
           <SportScienceModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "stretching" ? (
+          <StretchingModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}
