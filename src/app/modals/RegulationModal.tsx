@@ -22,7 +22,7 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
     >
       <p className={styles.modalDescription}>{topic.description}</p>
       <div className={styles.diagramWrap}>
-        <svg viewBox="0 0 840 510" fontFamily="Arial, Helvetica, sans-serif">
+        <svg viewBox="0 0 800 450" fontFamily="Arial, Helvetica, sans-serif">
           <defs>
             <pattern id="pat-angry" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <rect width="14" height="14" fill="#c1272d" />
@@ -62,13 +62,6 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
             </pattern>
           </defs>
 
-          <rect x="6" y="6" width="828" height="498" rx="14" fill="none" stroke="#1a1a1a" strokeWidth="3" />
-          <rect x="40" y="-8" width="170" height="28" rx="14" fill="#fcfcfb" stroke="#1a1a1a" strokeWidth="2.5" />
-          <text x="125" y="6" fontSize="15" fontWeight="700" fill="#1a1a1a" textAnchor="middle" dominantBaseline="middle">
-            Deep Breathing
-          </text>
-
-          <g transform="translate(20 40)">
           <g stroke="#1a1a1a" strokeWidth="3" strokeLinejoin="round">
             <path d="M 20.00 420.00 A 380 380 0 0 1 28.30 340.99 L 292.40 397.13 A 110 110 0 0 0 290.00 420.00 Z" fill="url(#pat-angry)" />
             <path d="M 28.30 340.99 A 380 380 0 0 1 117.60 165.73 L 318.25 346.40 A 110 110 0 0 0 292.40 397.13 Z" fill="url(#pat-frustrated)" />
@@ -107,7 +100,6 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
             <text x="607.54" y="323.22" fontSize="20" transform="rotate(65 607.54 323.22)">Tired</text>
 
             <text x="643.17" y="390.14" fontSize="15" transform="rotate(83 643.17 390.14)">Upset</text>
-          </g>
           </g>
         </svg>
       </div>

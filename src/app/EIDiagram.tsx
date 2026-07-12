@@ -103,19 +103,19 @@ const TOPICS: Topic[] = [
   },
 ];
 
-const VIEW_W = 1200;
-const VIEW_H = 1060;
+const VIEW_W = 1300;
+const VIEW_H = 1160;
 const CENTER = { x: VIEW_W / 2, y: VIEW_H / 2 };
-const HUB_RADIUS = 108;
-const ARM_LENGTH = 400;
-const LINE_HEIGHT = 21;
-const FONT_SIZE = 15.5;
-const PAD_X = 20;
-const PAD_Y = 16;
-const MIN_BOX_W = 150;
-const MAX_BOX_W = 236;
-const CHAR_W = 8.1;
-const CURVE_OFFSET = 46;
+const HUB_RADIUS = 130;
+const ARM_LENGTH = 480;
+const LINE_HEIGHT = 25;
+const FONT_SIZE = 18.5;
+const PAD_X = 24;
+const PAD_Y = 19;
+const MIN_BOX_W = 180;
+const MAX_BOX_W = 283;
+const CHAR_W = 9.7;
+const CURVE_OFFSET = 55;
 
 function wrapLabel(label: string, maxChars: number): string[] {
   const words = label.split(" ");
@@ -213,8 +213,11 @@ export default function EIDiagram() {
   const geometry = useMemo(buildGeometry, []);
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [modal, setModal] = useState<ModalTarget | null>(null);
+  const [autoHighlight, setAutoHighlight] = useState(true);
   const lastTriggerRef = useRef<SVGElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const stopAutoHighlight = () => setAutoHighlight(false);
 
   const modalTopic = modal?.kind === "topic" ? TOPICS.find((t) => t.id === modal.id) ?? null : null;
   const isHubModal = modal?.kind === "hub";
@@ -246,13 +249,35 @@ export default function EIDiagram() {
   }, [modalKey]);
 
   return (
-    <div className={styles.wrap}>
+    <div className={`${styles.wrap} ${autoHighlight ? styles.autoHighlight : ""}`}>
+      <div className={styles.pinchHint} aria-hidden="true">
+        <span className={styles.pinchIcon}>
+          <span className={styles.pinchDot} />
+          <span className={styles.pinchDot} />
+        </span>
+        Pinch to zoom
+      </div>
       <svg
         className={styles.figure}
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
         role="img"
         aria-label="Mind map of Emotional Intelligence and its component topics"
       >
+        <rect
+          x={24}
+          y={24}
+          width={VIEW_W - 48}
+          height={VIEW_H - 48}
+          rx={32}
+          fill="none"
+          stroke="var(--ink-faint)"
+          strokeWidth={3}
+        />
+        <rect x={58} y={9} width={190} height={30} rx={15} fill="var(--surface)" stroke="var(--ink-faint)" strokeWidth={2.5} />
+        <text x={153} y={24} fontSize={16} fontWeight={700} fill="var(--ink-faint)" textAnchor="middle" dominantBaseline="middle">
+          Deep Breathing
+        </text>
+
         {geometry.map(({ topic, arrowStart, arrowEnd, control, pathLength }, i) => (
           <path
             key={`arrow-${topic.id}`}
@@ -298,14 +323,24 @@ export default function EIDiagram() {
               role="button"
               aria-haspopup="dialog"
               aria-label={`${topic.label}: ${topic.description}`}
-              onMouseEnter={() => setHoverId(topic.id)}
+              onMouseEnter={() => {
+                setHoverId(topic.id);
+                stopAutoHighlight();
+              }}
               onMouseLeave={() => setHoverId(null)}
-              onFocus={() => setHoverId(topic.id)}
+              onFocus={() => {
+                setHoverId(topic.id);
+                stopAutoHighlight();
+              }}
               onBlur={() => setHoverId(null)}
-              onClick={(e) => openModal({ kind: "topic", id: topic.id }, e.currentTarget)}
+              onClick={(e) => {
+                stopAutoHighlight();
+                openModal({ kind: "topic", id: topic.id }, e.currentTarget);
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
+                  stopAutoHighlight();
                   openModal({ kind: "topic", id: topic.id }, e.currentTarget);
                 }
               }}
@@ -314,25 +349,32 @@ export default function EIDiagram() {
                 className={styles.nodeGroup}
                 style={{ "--delay": `${900 + i * 70}ms` } as CSSProperties}
               >
-                <rect
-                  className={styles.nodeBox}
-                  x={nodeCenter.x - boxW / 2}
-                  y={nodeCenter.y - boxH / 2}
-                  width={boxW}
-                  height={boxH}
-                  rx={16}
-                />
-                <text className={styles.label} fontSize={FONT_SIZE} x={nodeCenter.x}>
-                  {lines.map((line, li) => (
-                    <tspan
-                      key={li}
-                      x={nodeCenter.x}
-                      y={nodeCenter.y - ((lines.length - 1) * LINE_HEIGHT) / 2 + li * LINE_HEIGHT}
-                    >
-                      {line}
-                    </tspan>
-                  ))}
-                </text>
+                <g
+                  className={styles.nodePulse}
+                  style={
+                    { "--highlight-delay": `${(i * 10800) / geometry.length}ms` } as CSSProperties
+                  }
+                >
+                  <rect
+                    className={styles.nodeBox}
+                    x={nodeCenter.x - boxW / 2}
+                    y={nodeCenter.y - boxH / 2}
+                    width={boxW}
+                    height={boxH}
+                    rx={19}
+                  />
+                  <text className={styles.label} fontSize={FONT_SIZE} x={nodeCenter.x}>
+                    {lines.map((line, li) => (
+                      <tspan
+                        key={li}
+                        x={nodeCenter.x}
+                        y={nodeCenter.y - ((lines.length - 1) * LINE_HEIGHT) / 2 + li * LINE_HEIGHT}
+                      >
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                </g>
               </g>
             </g>
           );
@@ -344,23 +386,29 @@ export default function EIDiagram() {
           role="button"
           aria-haspopup="dialog"
           aria-label="Emotional Intelligence (E.Q): compare IQ and EQ"
-          onClick={(e) => openModal({ kind: "hub" }, e.currentTarget)}
+          onMouseEnter={stopAutoHighlight}
+          onFocus={stopAutoHighlight}
+          onClick={(e) => {
+            stopAutoHighlight();
+            openModal({ kind: "hub" }, e.currentTarget);
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
+              stopAutoHighlight();
               openModal({ kind: "hub" }, e.currentTarget);
             }
           }}
         >
           <circle cx={CENTER.x} cy={CENTER.y} r={HUB_RADIUS} />
-          <text x={CENTER.x} fontSize={30}>
-            <tspan x={CENTER.x} y={CENTER.y - 26}>
+          <text x={CENTER.x} fontSize={36}>
+            <tspan x={CENTER.x} y={CENTER.y - 31}>
               Emotional
             </tspan>
-            <tspan x={CENTER.x} y={CENTER.y + 8}>
+            <tspan x={CENTER.x} y={CENTER.y + 10}>
               Intelligence
             </tspan>
-            <tspan x={CENTER.x} y={CENTER.y + 34} fontSize={17} className={styles.hubSub}>
+            <tspan x={CENTER.x} y={CENTER.y + 41} fontSize={20} className={styles.hubSub}>
               (E.Q)
             </tspan>
           </text>
