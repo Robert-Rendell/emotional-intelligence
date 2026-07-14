@@ -7,6 +7,7 @@ import RegulationModal from "./modals/RegulationModal";
 import InflatedLifestyleModal from "./modals/InflatedLifestyleModal";
 import SportScienceModal from "./modals/SportScienceModal";
 import StretchingModal from "./modals/StretchingModal";
+import OpenMindModal from "./modals/OpenMindModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 export type Topic = {
@@ -438,6 +439,12 @@ export default function EIDiagram() {
           />
         ) : modalTopic.id === "stretching" ? (
           <StretchingModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "open-mind" ? (
+          <OpenMindModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}
