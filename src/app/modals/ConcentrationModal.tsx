@@ -11,6 +11,10 @@ type ConcentrationModalProps = {
   closeButtonRef: RefObject<HTMLButtonElement | null>;
 };
 
+const PSYCHE_STROKE = "var(--ink)";
+const PSYCHE_BLUE = "#2a5ed4";
+const PSYCHE_ORANGE = "#e8871e";
+
 const BEGINNER_STEPS = [
   "Choose a quiet spot with no distractions",
   "Sit with back straight and belly unburdened",
@@ -31,6 +35,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
       onClose={onClose}
       closeButtonRef={closeButtonRef}
       colorVar={topic.colorVar}
+      wide
     >
       <p className={styles.modalDescription}>{topic.description}</p>
 
@@ -85,7 +90,16 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
             <ul className={styles.modalList}>
               <li>
                 Learn about cognitive unity and instinctual deep breathing through the teachings
-                of the Bhagavad Gita.
+                of the{" "}
+                <a
+                  className={styles.modalLink}
+                  href="https://www.amazon.co.uk/Bhagavad-Easwarans-Classics-Indian-Spirituality/dp/1586380192"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Bhagavad Gita
+                </a>
+                .
               </li>
               <li>Learn about Turiya and the differences between Maya, Atman and Brahman.</li>
             </ul>
@@ -102,6 +116,82 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
             in your lungs as the oxygen (O2) is absorbed.
           </li>
         </ul>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h4 className={styles.modalSectionTitle}>Maya, Atman, Brahman</h4>
+        <div className={styles.diagramWrap}>
+          <svg viewBox="0 0 760 820" fontFamily="Arial, Helvetica, sans-serif">
+            <rect x={0} y={0} width={760} height={820} fill="var(--surface)" />
+            <defs>
+              <marker id="psyche-arrow-black" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 Z" fill={PSYCHE_STROKE} />
+              </marker>
+              <marker id="psyche-arrow-black-thick" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 Z" fill={PSYCHE_STROKE} />
+              </marker>
+              <marker id="psyche-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 Z" fill={PSYCHE_BLUE} />
+              </marker>
+              <marker id="psyche-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 Z" fill={PSYCHE_ORANGE} />
+              </marker>
+            </defs>
+
+            {/* top coordinate triad */}
+            <line x1={80} y1={300} x2={25} y2={225} stroke={PSYCHE_STROKE} strokeWidth={3} markerEnd="url(#psyche-arrow-black)" />
+            <line x1={80} y1={300} x2={80} y2={220} stroke={PSYCHE_STROKE} strokeWidth={3} markerEnd="url(#psyche-arrow-black)" />
+            <line x1={80} y1={300} x2={40} y2={360} stroke={PSYCHE_STROKE} strokeWidth={2.5} markerEnd="url(#psyche-arrow-black)" />
+            <line x1={80} y1={300} x2={725} y2={300} stroke={PSYCHE_STROKE} strokeWidth={5} markerEnd="url(#psyche-arrow-black-thick)" />
+            <text x={5} y={210} fontSize={22} fill={PSYCHE_STROKE}>up</text>
+            <text x={90} y={216} fontSize={24} fill={PSYCHE_STROKE}>y</text>
+            <text x={15} y={395} fontSize={24} fill={PSYCHE_STROKE}>z</text>
+            <text x={100} y={294} fontSize={24} fill={PSYCHE_STROKE}>x</text>
+
+            {/* circled point of unity where Atman meets Brahman */}
+            <circle cx={403} cy={300} r={22} fill="none" stroke={PSYCHE_BLUE} strokeWidth={3} />
+            <line x1={363} y1={150} x2={397} y2={279} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
+            <line x1={563} y1={140} x2={543} y2={296} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
+            <text x={363} y={115} fontSize={32} textAnchor="middle" fill={PSYCHE_STROKE}>Atman</text>
+            <text x={563} y={105} fontSize={32} textAnchor="middle" fill={PSYCHE_STROKE}>Brahman</text>
+
+            {/* surfaces of realisation pyramid */}
+            <line x1={403} y1={300} x2={173} y2={650} stroke={PSYCHE_STROKE} strokeWidth={4} strokeLinecap="round" />
+            <line x1={403} y1={300} x2={633} y2={650} stroke={PSYCHE_STROKE} strokeWidth={4} strokeLinecap="round" />
+
+            <line x1={153} y1={400} x2={653} y2={400} stroke={PSYCHE_STROKE} strokeWidth={4} strokeDasharray="2 12" strokeLinecap="round" />
+            <line x1={153} y1={480} x2={653} y2={480} stroke={PSYCHE_STROKE} strokeWidth={4} strokeDasharray="2 12" strokeLinecap="round" />
+            <line x1={153} y1={560} x2={653} y2={560} stroke={PSYCHE_STROKE} strokeWidth={4} strokeDasharray="2 12" strokeLinecap="round" />
+            <line x1={395} y1={595} x2={430} y2={560} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
+            <text x={403} y={615} fontSize={20} textAnchor="middle" fill={PSYCHE_STROKE}>surfaces of realisation</text>
+
+            {/* Maya at the base */}
+            <line x1={160} y1={758} x2={125} y2={654} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
+            <text x={160} y={790} fontSize={32} textAnchor="middle" fill={PSYCHE_STROKE}>Maya</text>
+
+            {/* bottom coordinate triad */}
+            <line x1={80} y1={650} x2={80} y2={575} stroke={PSYCHE_STROKE} strokeWidth={2.5} markerEnd="url(#psyche-arrow-black)" />
+            <line x1={80} y1={650} x2={725} y2={650} stroke={PSYCHE_STROKE} strokeWidth={5} markerEnd="url(#psyche-arrow-black-thick)" />
+            <line x1={80} y1={650} x2={45} y2={695} stroke={PSYCHE_STROKE} strokeWidth={2.5} markerEnd="url(#psyche-arrow-black)" />
+            <text x={90} y={566} fontSize={24} fill={PSYCHE_STROKE}>y</text>
+            <text x={100} y={644} fontSize={24} fill={PSYCHE_STROKE}>x</text>
+            <text x={30} y={725} fontSize={24} fill={PSYCHE_STROKE}>z</text>
+
+            {/* deep breathing, ascending through the surfaces */}
+            <line x1={648} y1={650} x2={648} y2={300} stroke={PSYCHE_ORANGE} strokeWidth={6} markerEnd="url(#psyche-arrow-orange)" />
+            <text
+              x={671}
+              y={515}
+              fontSize={20}
+              fontWeight={700}
+              textAnchor="middle"
+              fill={PSYCHE_ORANGE}
+              transform="rotate(-90 671 515)"
+            >
+              deep breathing
+            </text>
+          </svg>
+        </div>
       </div>
     </ModalShell>
   );
