@@ -6,17 +6,13 @@ import YouTubeEmbed from "./YouTubeEmbed";
 import styles from "../EIDiagram.module.css";
 import type { Topic } from "../EIDiagram";
 
-type InflatedLifestyleModalProps = {
+type AwarenessModalProps = {
   topic: Topic;
   onClose: () => void;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
 };
 
-export default function InflatedLifestyleModal({
-  topic,
-  onClose,
-  closeButtonRef,
-}: InflatedLifestyleModalProps) {
+export default function AwarenessModal({ topic, onClose, closeButtonRef }: AwarenessModalProps) {
   return (
     <ModalShell
       title={topic.label}
@@ -25,7 +21,7 @@ export default function InflatedLifestyleModal({
       colorVar={topic.colorVar}
     >
       <p className={styles.modalDescription}>{topic.description}</p>
-      <YouTubeEmbed src="https://www.youtube.com/embed/O7ungMrz7w0?si=pDI806a0L67monrS" />
+      <YouTubeEmbed src="https://www.youtube.com/embed/iN6g2mr0p3Q?si=W7HXe1wXAiqUrsS5" />
     </ModalShell>
   );
 }

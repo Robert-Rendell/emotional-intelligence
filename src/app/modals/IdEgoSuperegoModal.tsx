@@ -11,14 +11,28 @@ type IdEgoSuperegoModalProps = {
   closeButtonRef: RefObject<HTMLButtonElement | null>;
 };
 
-const SUPEREGO_PATH =
-  "M 217.0 20.0 L 220.6 28.7 L 229.5 37.4 L 240.9 46.1 L 252.0 54.7 L 259.9 63.4 L 262.0 72.1 L 263.1 80.8 L 265.2 89.5 L 267.9 98.2 L 270.7 106.8 L 273.1 115.5 L 274.7 124.2 L 275.1 132.9 L 276.6 141.6 L 279.3 150.3 L 282.6 158.9 L 285.7 167.6 L 288.1 176.3 L 289.0 185.0 L 145.0 185.0 L 145.9 176.3 L 148.3 167.6 L 151.4 158.9 L 154.7 150.3 L 157.4 141.6 L 158.9 132.9 L 159.3 124.2 L 160.9 115.5 L 163.3 106.8 L 166.1 98.2 L 168.8 89.5 L 170.9 80.8 L 172.0 72.1 L 174.1 63.4 L 182.0 54.7 L 193.1 46.1 L 204.5 37.4 L 213.4 28.7 L 217.0 20.0 Z";
+const PEAK_PATH =
+  "M 236,150 L 255,175 L 275,165 L 295,200 L 330,195 L 360,225 L 395,238 L 145,238 L 170,225 L 160,195 L 185,180 L 200,160 L 215,170 L 225,155 Z";
 
-const EGO_PATH =
-  "M 289.0 185.0 L 290.2 195.3 L 293.3 205.7 L 297.5 216.0 L 302.3 226.3 L 306.7 236.7 L 310.2 247.0 L 311.9 257.3 L 312.4 267.7 L 314.2 278.0 L 316.9 288.3 L 320.1 298.7 L 323.3 309.0 L 326.2 319.3 L 328.2 329.7 L 329.0 340.0 L 105.0 340.0 L 105.8 329.7 L 107.8 319.3 L 110.7 309.0 L 113.9 298.7 L 117.1 288.3 L 119.8 278.0 L 121.6 267.7 L 122.1 257.3 L 123.8 247.0 L 127.3 236.7 L 131.7 226.3 L 136.5 216.0 L 140.7 205.7 L 143.8 195.3 L 145.0 185.0 Z";
+const SUPEREGO_PATH =
+  "M 145,238 L 120,260 L 100,285 L 85,310 L 95,335 L 80,360 L 90,385 L 75,410 L 85,435 L 100,460 L 120,485 L 140,505 L 165,525 L 190,545 L 215,565 L 238,580 L 238,238 Z";
+
+const EGO_PATH = "M 238,238 L 395,238 L 390,250 L 395,275 L 390,300 L 392,330 L 238,330 Z";
 
 const ID_PATH =
-  "M 329.0 340.0 L 330.6 350.7 L 334.9 361.5 L 340.7 372.2 L 347.3 383.0 L 353.6 393.7 L 358.7 404.4 L 361.7 415.2 L 362.2 425.9 L 363.3 436.7 L 365.0 447.4 L 366.9 458.1 L 368.4 468.9 L 369.0 479.6 L 367.1 490.4 L 361.8 501.1 L 354.3 511.9 L 346.0 522.6 L 337.9 533.3 L 331.3 544.1 L 327.5 554.8 L 325.0 565.6 L 311.9 576.3 L 290.4 587.0 L 265.5 597.8 L 241.7 608.5 L 224.0 619.3 L 217.0 630.0 L 217.0 630.0 L 210.0 619.3 L 192.3 608.5 L 168.5 597.8 L 143.6 587.0 L 122.1 576.3 L 109.0 565.6 L 106.5 554.8 L 102.7 544.1 L 96.1 533.3 L 88.0 522.6 L 79.7 511.9 L 72.2 501.1 L 66.9 490.4 L 65.0 479.6 L 65.6 468.9 L 67.1 458.1 L 69.0 447.4 L 70.7 436.7 L 71.8 425.9 L 72.3 415.2 L 75.3 404.4 L 80.4 393.7 L 86.7 383.0 L 93.3 372.2 L 99.1 361.5 L 103.4 350.7 L 105.0 340.0 Z";
+  "M 238,330 L 392,330 L 390,350 L 385,375 L 375,398 L 365,422 L 350,445 L 340,468 L 325,490 L 310,510 L 295,530 L 275,548 L 255,565 L 238,580 Z";
+
+const SUN_PATH =
+  "M 462,80 L 446,91 L 450,110 L 431,106 L 420,122 L 409,106 L 390,110 L 394,91 L 378,80 L 394,69 L 390,50 L 409,54 L 420,38 L 431,54 L 450,50 L 446,69 Z";
+
+const WATER_PATH =
+  "M 0,240 Q 30,225 60,240 T 120,240 T 180,240 T 240,240 T 300,240 T 360,240 T 420,240 T 486,240 L 486,600 L 0,600 Z";
+
+const ICEBERG_STROKE = "#2b3a42";
+
+const JUNG_BG = "#3b4b58";
+const JUNG_TEXT = "#eef3f6";
+const JUNG_TEXT_MUTED = "#c3ced6";
 
 export default function IdEgoSuperegoModal({
   topic,
@@ -33,69 +47,128 @@ export default function IdEgoSuperegoModal({
       colorVar={topic.colorVar}
     >
       <p className={styles.modalDescription}>{topic.description}</p>
-      <div className={`${styles.diagramWrap} ${styles.diagramWrapNarrow}`}>
-        <svg viewBox="0 0 434 651" fontFamily="Arial, Helvetica, sans-serif">
-          <rect x={0} y={0} width={434} height={651} fill="#a9ccd6" />
-          <rect x={0} y={185} width={434} height={155} fill="#4a7f92" />
-          <rect x={0} y={340} width={434} height={311} fill="#2f5a6d" />
 
-          <path d={SUPEREGO_PATH} fill="#f2ead6" />
-          <path d={EGO_PATH} fill="#6a9daa" />
-          <path d={ID_PATH} fill="#2a4f5e" />
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Freud&apos;s model</h3>
+        <div className={`${styles.diagramWrap} ${styles.diagramWrapNarrow}`}>
+          <svg viewBox="0 0 486 600" fontFamily="Arial, Helvetica, sans-serif">
+            <rect x={0} y={0} width={486} height={600} fill="#cfe2f3" />
+            <path d={WATER_PATH} fill="#86b6d8" />
+            <path d={SUN_PATH} fill="#f6dd6a" />
 
-          <g textAnchor="middle">
-            <text x={217} y={95} fontSize={28} fontWeight={800} fill="#1a2b33">
-              Superego
+            <path d={PEAK_PATH} fill="#ffffff" stroke={ICEBERG_STROKE} strokeWidth={2} strokeLinejoin="round" />
+            <line x1={237} y1={150} x2={238} y2={238} stroke={ICEBERG_STROKE} strokeWidth={2} />
+
+            <path d={SUPEREGO_PATH} fill="#9dc3de" stroke={ICEBERG_STROKE} strokeWidth={2} strokeLinejoin="round" />
+            <path d={EGO_PATH} fill="#9dc3de" stroke={ICEBERG_STROKE} strokeWidth={2} strokeLinejoin="round" />
+            <path d={ID_PATH} fill="#9dc3de" stroke={ICEBERG_STROKE} strokeWidth={2} strokeLinejoin="round" />
+
+            <text x={40} y={55} fontSize={22} fontStyle="italic" fill="#1a2733">
+              Conscious
             </text>
-            <text x={217} y={125} fontSize={16} fontWeight={600} fill="#1a2b33">
-              (Moral Compass)
-            </text>
-            <text
-              x={217}
-              y={150}
-              fontSize={12}
-              fontStyle="italic"
-              letterSpacing={1}
-              fill="#4a5a5f"
-            >
-              CONSCIOUS
+            <text x={40} y={470} fontSize={22} fontStyle="italic" fill="#1a2733">
+              Unconscious
             </text>
 
-            <text x={217} y={245} fontSize={26} fontWeight={800} fill="#f5f0e6">
+            <text x={315} y={290} fontSize={24} fontWeight={700} textAnchor="middle" fill="#16232b">
               Ego
             </text>
-            <text x={217} y={272} fontSize={15} fontWeight={600} fill="#f5f0e6">
-              (Mediator)
+            <text x={168} y={345} fontSize={24} fontWeight={700} textAnchor="middle" fill="#16232b">
+              Superego
             </text>
-            <text
-              x={217}
-              y={296}
-              fontSize={12}
-              fontStyle="italic"
-              letterSpacing={1}
-              fill="#d8e6ea"
-            >
-              SUBCONSCIOUS
-            </text>
-
-            <text x={217} y={460} fontSize={30} fontWeight={800} fill="#f5f0e6">
+            <text x={313} y={392} fontSize={24} fontWeight={700} textAnchor="middle" fill="#16232b">
               Id
             </text>
-            <text x={217} y={490} fontSize={16} fontWeight={600} fill="#f5f0e6">
-              (Primal Desires)
+          </svg>
+        </div>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Jung&apos;s model</h3>
+        <div className={`${styles.diagramWrap} ${styles.diagramWrapNarrow}`}>
+          <svg viewBox="0 0 486 700" fontFamily="Arial, Helvetica, sans-serif">
+            <rect x={0} y={0} width={486} height={700} fill={JUNG_BG} />
+
+            <text x={243} y={28} fontSize={13} fontWeight={700} letterSpacing={3} textAnchor="middle" fill={JUNG_TEXT_MUTED}>
+              CARL JUNG EXPLAINED
+            </text>
+            <text x={243} y={62} fontSize={28} fontWeight={800} textAnchor="middle" fill={JUNG_TEXT}>
+              Model of the Psyche
+            </text>
+
+            <circle cx={243} cy={410} r={230} fill="none" stroke={JUNG_TEXT} strokeWidth={2} />
+            <circle cx={243} cy={330} r={150} fill="#8fa3b0" fillOpacity={0.55} />
+            <circle cx={243} cy={490} r={150} fill="#0f1c24" fillOpacity={0.55} />
+
+            <g textAnchor="middle" fill={JUNG_TEXT}>
+              <text x={243} y={215} fontSize={16} fontWeight={700} letterSpacing={2}>
+                CONSCIOUS
+              </text>
+              <text x={243} y={250} fontSize={19} fontWeight={700}>
+                Ego
+              </text>
+              <text x={243} y={270} fontSize={14} fill={JUNG_TEXT_MUTED}>
+                (conscious &apos;I&apos;)
+              </text>
+              <text x={243} y={298} fontSize={19} fontWeight={700}>
+                Persona
+              </text>
+              <text x={243} y={318} fontSize={14} fill={JUNG_TEXT_MUTED}>
+                (social mask)
+              </text>
+
+              <text x={243} y={390} fontSize={16} fontWeight={700} letterSpacing={2}>
+                PERSONAL
+              </text>
+              <text x={243} y={412} fontSize={16} fontWeight={700} letterSpacing={2}>
+                UNCONSCIOUS
+              </text>
+              <text x={243} y={442} fontSize={19} fontWeight={700}>
+                Shadow
+              </text>
+              <text x={243} y={466} fontSize={19} fontWeight={700}>
+                Complexes
+              </text>
+
+              <text x={243} y={525} fontSize={16} fontWeight={700} letterSpacing={2}>
+                COLLECTIVE
+              </text>
+              <text x={243} y={547} fontSize={16} fontWeight={700} letterSpacing={2}>
+                UNCONSCIOUS
+              </text>
+              <text x={243} y={580} fontSize={19} fontWeight={700}>
+                Archetypes, symbols
+              </text>
+              <text x={243} y={605} fontSize={19} fontWeight={700}>
+                Anima &amp; animus
+              </text>
+            </g>
+
+            <text
+              x={445}
+              y={410}
+              fontSize={15}
+              fontWeight={700}
+              letterSpacing={2}
+              textAnchor="middle"
+              fill={JUNG_TEXT}
+              transform="rotate(-90 445 410)"
+            >
+              THE SELF
             </text>
             <text
-              x={217}
-              y={514}
+              x={478}
+              y={410}
               fontSize={12}
               fontStyle="italic"
-              letterSpacing={1}
-              fill="#c3d8de"
+              textAnchor="middle"
+              fill={JUNG_TEXT_MUTED}
+              transform="rotate(-90 478 410)"
             >
-              INSTINCT
+              = totality of the psyche
             </text>
-          </g>
-        </svg>
+          </svg>
+        </div>
       </div>
     </ModalShell>
   );

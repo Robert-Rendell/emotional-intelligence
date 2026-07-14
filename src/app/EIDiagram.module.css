@@ -380,6 +380,30 @@
   border: 0;
 }
 
+.videoSpinnerWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ring);
+}
+
+.videoSpinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 3px solid var(--ink-faint);
+  border-top-color: var(--ink-secondary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .diagramWrap {
   width: 100%;
 }
@@ -487,12 +511,125 @@
   white-space: normal;
 }
 
+.modalSection {
+  text-align: left;
+}
+
+.modalSection + .modalSection {
+  margin-top: 1.5rem;
+}
+
+.modalSectionTitle {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.modalOrderedList {
+  margin: 0;
+  padding-left: 1.3rem;
+  color: var(--ink-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.modalOrderedList li + li {
+  margin-top: 0.35rem;
+}
+
+.modalList {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--ink-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  list-style: disc;
+}
+
+.modalList li + li {
+  margin-top: 0.35rem;
+}
+
+.modalNote {
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid var(--c, var(--ring));
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--c, var(--ring)) 8%, transparent);
+  color: var(--ink-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.modalNote + .modalNote {
+  margin-top: 0.6rem;
+}
+
+.modalQuote {
+  margin: 0.9rem 0 0;
+  padding: 1.1rem 1.25rem;
+  border-left: 3px solid var(--c, var(--ring));
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in srgb, var(--c, var(--ring)) 6%, transparent);
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.modalQuoteCite {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--ink-secondary);
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.modalLevelGroup {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .modalLevelGroup {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.modalLevelCard {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ring);
+  border-radius: 10px;
+}
+
+.modalLink {
+  color: var(--c, var(--ink));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.modalLink:hover,
+.modalLink:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+.modalLevelCard .modalSectionTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hubPulse,
   .arrowDraw,
   .nodeGroup,
   .nodePulse,
-  .pinchDot {
+  .pinchDot,
+  .videoSpinner {
     animation: none !important;
   }
   .nodeGroup,

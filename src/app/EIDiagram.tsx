@@ -9,6 +9,9 @@ import SportScienceModal from "./modals/SportScienceModal";
 import StretchingModal from "./modals/StretchingModal";
 import OpenMindModal from "./modals/OpenMindModal";
 import IdEgoSuperegoModal from "./modals/IdEgoSuperegoModal";
+import ConcentrationModal from "./modals/ConcentrationModal";
+import AwarenessModal from "./modals/AwarenessModal";
+import SufferingIsRelativeModal from "./modals/SufferingIsRelativeModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 export type Topic = {
@@ -465,6 +468,24 @@ export default function EIDiagram() {
           />
         ) : modalTopic.id === "id-ego-superego" ? (
           <IdEgoSuperegoModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "concentration" ? (
+          <ConcentrationModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "awareness" ? (
+          <AwarenessModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "suffering-is-relative" ? (
+          <SufferingIsRelativeModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}

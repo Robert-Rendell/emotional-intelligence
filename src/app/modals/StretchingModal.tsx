@@ -2,6 +2,7 @@
 
 import type { RefObject } from "react";
 import ModalShell from "./ModalShell";
+import YouTubeEmbed from "./YouTubeEmbed";
 import styles from "../EIDiagram.module.css";
 import type { Topic } from "../EIDiagram";
 
@@ -20,15 +21,7 @@ export default function StretchingModal({ topic, onClose, closeButtonRef }: Stre
       colorVar={topic.colorVar}
     >
       <p className={styles.modalDescription}>{topic.description}</p>
-      <div className={styles.videoWrap}>
-        <iframe
-          src="https://www.youtube.com/embed/BPK9WNtpBgk?si=qDFDmIxT1DgivQgc"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
-      </div>
+      <YouTubeEmbed src="https://www.youtube.com/embed/BPK9WNtpBgk?si=qDFDmIxT1DgivQgc" />
     </ModalShell>
   );
 }
