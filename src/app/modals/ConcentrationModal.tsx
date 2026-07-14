@@ -15,6 +15,24 @@ const PSYCHE_STROKE = "var(--ink)";
 const PSYCHE_BLUE = "#2a5ed4";
 const PSYCHE_ORANGE = "#e8871e";
 
+const PSYCHE_CONCEPTS = [
+  {
+    term: "Maya",
+    description:
+      'The illusion of reality; considered a "dream state" because it is only a cross-section of the reality living beings can experience; produced by shallow breathing.',
+  },
+  {
+    term: "Atman",
+    description:
+      "The inner self beyond the ego (e.g. desires, pride) and emotions (gunas), shared by all living things.",
+  },
+  {
+    term: "Brahman",
+    description:
+      "The ultimate reality; usually best described like a dripping tap (you see it here and there), and the practice of concentration meditation allows you to turn the tap so the water flows more regularly until it flows without breaks. With practice, controlling the flow of the water (concentration) becomes yours to decide. Eventually you can train your instinctual mind to breathe deeply when you aren't even thinking about it consciously or subconsciously.",
+  },
+];
+
 const BEGINNER_STEPS = [
   "Choose a quiet spot with no distractions",
   "Sit with back straight and belly unburdened",
@@ -41,7 +59,6 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
 
       <div className={styles.modalSection}>
         <h3 className={styles.modalSectionTitle}>Concentration meditation (belly breathing)</h3>
-        <h4 className={styles.modalSectionTitle}>Beginner</h4>
         <ol className={styles.modalOrderedList}>
           {BEGINNER_STEPS.map((step) => (
             <li key={step}>{step}</li>
@@ -101,7 +118,18 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
                 </a>
                 .
               </li>
-              <li>Learn about Turiya and the differences between Maya, Atman and Brahman.</li>
+              <li>
+                Learn about{" "}
+                <a
+                  className={styles.modalLink}
+                  href="https://en.wikipedia.org/wiki/Turiya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Turiya
+                </a>{" "}
+                and the differences between Maya, Atman and Brahman.
+              </li>
             </ul>
           </div>
         </div>
@@ -191,6 +219,27 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
               deep breathing
             </text>
           </svg>
+        </div>
+
+        <div className={styles.modalTableWrap}>
+          <table className={styles.iqTable}>
+            <thead>
+              <tr>
+                <th>Concept</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              {PSYCHE_CONCEPTS.map((row) => (
+                <tr key={row.term}>
+                  <td>
+                    <strong>{row.term}</strong>
+                  </td>
+                  <td>{row.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </ModalShell>
