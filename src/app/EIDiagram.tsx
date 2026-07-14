@@ -218,8 +218,21 @@ export default function EIDiagram() {
   const [autoHighlight, setAutoHighlight] = useState(true);
   const lastTriggerRef = useRef<SVGElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const stopAutoHighlight = () => setAutoHighlight(false);
+  const IDLE_RESUME_MS = 3000;
+
+  const stopAutoHighlight = () => {
+    setAutoHighlight(false);
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => setAutoHighlight(true), IDLE_RESUME_MS);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
+  }, []);
 
   const modalTopic = modal?.kind === "topic" ? TOPICS.find((t) => t.id === modal.id) ?? null : null;
   const isHubModal = modal?.kind === "hub";
