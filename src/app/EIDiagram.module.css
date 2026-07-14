@@ -390,6 +390,11 @@
   display: block;
 }
 
+.diagramWrapNarrow {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .modalTableWrap {
   overflow-x: auto;
 }
