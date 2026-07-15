@@ -2,6 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "./EIDiagram.module.css";
+import { TOPICS, type Topic } from "./topics";
+
+export type { Topic };
 import HubModal from "./modals/HubModal";
 import RegulationModal from "./modals/RegulationModal";
 import InflatedLifestyleModal from "./modals/InflatedLifestyleModal";
@@ -16,100 +19,6 @@ import EmpathyModal from "./modals/EmpathyModal";
 import OverstimulationModal from "./modals/OverstimulationModal";
 import MoralityModal from "./modals/MoralityModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
-
-export type Topic = {
-  id: string;
-  label: string;
-  colorVar: string;
-  description: string;
-};
-
-const TOPICS: Topic[] = [
-  {
-    id: "regulation",
-    label: "Emotional Regulation & Zones of Regulation",
-    colorVar: "--c-regulation",
-    description:
-      "Frameworks and tools for recognizing which emotional zone you're in and steering back toward balance.",
-  },
-  {
-    id: "sport-science",
-    label: "Sport Science / Biology / Neurochemicals of Happiness",
-    colorVar: "--c-sport",
-    description:
-      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
-  },
-  {
-    id: "stretching",
-    label: "Stretching",
-    colorVar: "--c-stretch",
-    description:
-      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
-  },
-  {
-    id: "awareness",
-    label: "Awareness",
-    colorVar: "--c-awareness",
-    description:
-      "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
-  },
-  {
-    id: "concentration",
-    label: "Concentration",
-    colorVar: "--c-concentration",
-    description:
-      "The capacity to direct attention deliberately and hold it there, even amid distraction.",
-  },
-  {
-    id: "overstimulation",
-    label: "Overstimulation",
-    colorVar: "--c-overstim",
-    description:
-      "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
-  },
-  {
-    id: "open-mind",
-    label: "Open Mind / Education",
-    colorVar: "--c-openmind",
-    description:
-      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
-  },
-  {
-    id: "empathy",
-    label: "Empathy",
-    colorVar: "--c-empathy",
-    description:
-      "Sensing what other people feel and letting that understanding shape how you respond to them.",
-  },
-  {
-    id: "motivation",
-    label: "Self Actualisation / Motivation",
-    colorVar: "--c-motivation",
-    description:
-      "What drives people to act, from meeting basic needs to pursuing growth, meaning, and self-actualisation.",
-  },
-  {
-    id: "id-ego-superego",
-    label: "Id - Ego - Superego",
-    colorVar: "--c-idego",
-    description:
-      "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
-  },
-  {
-    id: "inflated-lifestyle",
-    label: "Inflated Lifestyle",
-    colorVar: "--c-inflated",
-    description:
-      "When spending, comfort, and expectations quietly climb to match income, closing the gap between what you have and what feels like enough.",
-  },
-  {
-    id: "morality",
-    label: "Morality",
-    colorVar: "--c-morality",
-    description:
-      "The values and principles that guide judgments of right and wrong, fair and unfair.",
-  },
-];
 
 const VIEW_W = 1300;
 const VIEW_H = 1160;
@@ -217,7 +126,11 @@ function buildGeometry(): Geometry[] {
 
 type ModalTarget = { kind: "topic"; id: string } | { kind: "hub" };
 
-export default function EIDiagram() {
+type EIDiagramProps = {
+  initialTopicId?: string;
+};
+
+export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
   const geometry = useMemo(buildGeometry, []);
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [modal, setModal] = useState<ModalTarget | null>(null);
@@ -240,6 +153,30 @@ export default function EIDiagram() {
     };
   }, []);
 
+  useEffect(() => {
+    if (initialTopicId && TOPICS.some((t) => t.id === initialTopicId)) {
+      setModal({ kind: "topic", id: initialTopicId });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync modal state with the URL using the raw History API rather than
+  // Next's router: pushing through next/navigation would swap in the
+  // separate `/[topic]` route and remount this whole component, replaying
+  // every entrance animation and looking like a full page refresh.
+  useEffect(() => {
+    const onPopState = () => {
+      const id = window.location.pathname.replace(/^\//, "");
+      if (id && TOPICS.some((t) => t.id === id)) {
+        setModal({ kind: "topic", id });
+      } else {
+        setModal(null);
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   const modalTopic = modal?.kind === "topic" ? TOPICS.find((t) => t.id === modal.id) ?? null : null;
   const isHubModal = modal?.kind === "hub";
   const modalKey = modal ? (modal.kind === "hub" ? "hub" : modal.id) : null;
@@ -247,11 +184,14 @@ export default function EIDiagram() {
   const openModal = (target: ModalTarget, trigger: SVGElement) => {
     lastTriggerRef.current = trigger;
     setModal(target);
+    const path = target.kind === "topic" ? `/${target.id}` : "/";
+    if (window.location.pathname !== path) window.history.pushState(null, "", path);
   };
 
   const closeModal = () => {
     setModal(null);
     lastTriggerRef.current?.focus();
+    if (window.location.pathname !== "/") window.history.pushState(null, "", "/");
   };
 
   useEffect(() => {
