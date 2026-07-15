@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:stop": "ss -ltnp 2>/dev/null | grep ':3000 ' | grep -oP 'pid=\\K[0-9]+' | xargs -r kill && echo 'stopped' || echo 'no dev server running on :3000'",
+    "dev:status": "ss -ltn 2>/dev/null | grep -q ':3000 ' && echo 'dev server running on :3000' || echo 'port 3000 is free'",
     "build": "next build",
     "start": "npx serve@latest out",
     "lint": "next lint"

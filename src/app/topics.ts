@@ -21,6 +21,13 @@ export const TOPICS: Topic[] = [
       "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
   },
   {
+    id: "motivation",
+    label: "Self Actualisation / Motivation",
+    colorVar: "--c-motivation",
+    description:
+      "What drives people to act, from meeting basic needs to pursuing growth, meaning, and self-actualisation.",
+  },
+  {
     id: "stretching",
     label: "Stretching",
     colorVar: "--c-stretch",
@@ -61,13 +68,6 @@ export const TOPICS: Topic[] = [
     colorVar: "--c-empathy",
     description:
       "Sensing what other people feel and letting that understanding shape how you respond to them.",
-  },
-  {
-    id: "motivation",
-    label: "Self Actualisation / Motivation",
-    colorVar: "--c-motivation",
-    description:
-      "What drives people to act, from meeting basic needs to pursuing growth, meaning, and self-actualisation.",
   },
   {
     id: "id-ego-superego",

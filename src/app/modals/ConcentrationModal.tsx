@@ -161,7 +161,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
       <div className={styles.modalSection}>
         <h4 className={styles.modalSectionTitle}>Maya, Atman, Brahman</h4>
         <div className={styles.diagramWrap}>
-          <svg viewBox="0 0 760 820" fontFamily="Arial, Helvetica, sans-serif">
+          <svg viewBox="0 60 760 760" fontFamily="Arial, Helvetica, sans-serif">
             <rect x={0} y={0} width={760} height={820} fill="var(--surface)" />
             <defs>
               <marker id="psyche-arrow-black" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -231,7 +231,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
               deep breathing
             </text>
 
-            <text x={615} y={805} fontSize={11} fill="var(--ink-faint)" textAnchor="end">
+            <text x={745} y={805} fontSize={11} fill="var(--ink-faint)" textAnchor="end">
               Copyright &copy; Robert Rendell 2026
             </text>
           </svg>

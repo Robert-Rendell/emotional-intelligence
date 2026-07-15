@@ -266,7 +266,7 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
           fill="var(--ink-faint)"
           textAnchor="end"
         >
-          Copyright &copy; Rob Rendell 2026
+          Copyright &copy; Robert Rendell 2026
         </text>
 
         {geometry.map(({ topic, arrowStart, arrowEnd, control, pathLength }, i) => (
