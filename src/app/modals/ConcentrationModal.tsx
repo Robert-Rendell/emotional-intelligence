@@ -58,7 +58,19 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
       <p className={styles.modalDescription}>{topic.description}</p>
 
       <div className={styles.modalSection}>
-        <h3 className={styles.modalSectionTitle}>Concentration meditation (belly breathing)</h3>
+        <h3 className={styles.modalSectionTitle}>Concentration meditation</h3>
+        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
+          (belly breathing /{" "}
+          <a
+            className={styles.modalLink}
+            href="https://www.health.harvard.edu/lung-cancer/learning-diaphragmatic-breathing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            diaphragmatic breathing
+          </a>
+          )
+        </p>
         <ol className={styles.modalOrderedList}>
           {BEGINNER_STEPS.map((step) => (
             <li key={step}>{step}</li>
@@ -219,7 +231,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
               deep breathing
             </text>
 
-            <text x={605} y={805} fontSize={11} fill="var(--ink-faint)" textAnchor="end">
+            <text x={615} y={805} fontSize={11} fill="var(--ink-faint)" textAnchor="end">
               Copyright &copy; Robert Rendell 2026
             </text>
           </svg>

@@ -234,10 +234,31 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
           stroke="var(--ink-faint)"
           strokeWidth={3}
         />
-        <rect x={58} y={9} width={190} height={30} rx={15} fill="var(--surface)" stroke="var(--ink-faint)" strokeWidth={2.5} />
-        <text x={153} y={24} fontSize={16} fontWeight={700} fill="var(--ink-faint)" textAnchor="middle" dominantBaseline="middle">
-          Deep Breathing
-        </text>
+        <g
+          tabIndex={0}
+          role="button"
+          aria-haspopup="dialog"
+          aria-label="Concentration: The capacity to direct attention deliberately and hold it there, even amid distraction."
+          style={{ cursor: "pointer" }}
+          onMouseEnter={stopAutoHighlight}
+          onFocus={stopAutoHighlight}
+          onClick={(e) => {
+            stopAutoHighlight();
+            openModal({ kind: "topic", id: "concentration" }, e.currentTarget);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              stopAutoHighlight();
+              openModal({ kind: "topic", id: "concentration" }, e.currentTarget);
+            }
+          }}
+        >
+          <rect x={58} y={9} width={190} height={30} rx={15} fill="var(--surface)" stroke="var(--ink-faint)" strokeWidth={2.5} />
+          <text x={153} y={24} fontSize={16} fontWeight={700} fill="var(--ink-faint)" textAnchor="middle" dominantBaseline="middle">
+            Deep Breathing
+          </text>
+        </g>
         <text
           x={VIEW_W - 40}
           y={VIEW_H - 36}
