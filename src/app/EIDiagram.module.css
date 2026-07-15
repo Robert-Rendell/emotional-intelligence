@@ -19,6 +19,8 @@
   --c-suffering: #b1b059;
   --c-inflated: #753c74;
 
+  --psyche-blue: #2a5ed4;
+
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -49,6 +51,8 @@
     --c-stretch: #06a3a5;
     --c-suffering: #96943c;
     --c-inflated: #844a83;
+
+    --psyche-blue: var(--c-concentration);
   }
 }
 

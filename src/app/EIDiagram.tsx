@@ -66,7 +66,7 @@ const TOPICS: Topic[] = [
   },
   {
     id: "open-mind",
-    label: "Open mind / Education",
+    label: "Open Mind / Education",
     colorVar: "--c-openmind",
     description:
       "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",

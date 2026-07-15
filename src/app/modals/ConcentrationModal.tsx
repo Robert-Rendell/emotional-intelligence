@@ -12,7 +12,7 @@ type ConcentrationModalProps = {
 };
 
 const PSYCHE_STROKE = "var(--ink)";
-const PSYCHE_BLUE = "#2a5ed4";
+const PSYCHE_BLUE = "var(--psyche-blue)";
 const PSYCHE_ORANGE = "#e8871e";
 
 const PSYCHE_CONCEPTS = [
@@ -138,7 +138,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
       <div className={styles.modalSection}>
         <h4 className={styles.modalSectionTitle}>Knowledge</h4>
         <ul className={styles.modalList}>
-          <li>Oxygen is absorbed through the alveoli in your lungs.</li>
+          <li>Oxygen is absorbed into the bloodstream through the alveoli in your lungs.</li>
           <li>
             The feeling of wanting to take another breath is the build up of carbon dioxide (CO2)
             in your lungs as the oxygen (O2) is absorbed.
@@ -194,8 +194,8 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
             <text x={403} y={615} fontSize={20} textAnchor="middle" fill={PSYCHE_STROKE}>surfaces of realisation</text>
 
             {/* Maya at the base */}
-            <line x1={160} y1={758} x2={125} y2={654} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
-            <text x={160} y={790} fontSize={32} textAnchor="middle" fill={PSYCHE_STROKE}>Maya</text>
+            <line x1={438} y1={758} x2={403} y2={654} stroke={PSYCHE_BLUE} strokeWidth={3} markerEnd="url(#psyche-arrow-blue)" />
+            <text x={438} y={790} fontSize={32} textAnchor="middle" fill={PSYCHE_STROKE}>Maya</text>
 
             {/* bottom coordinate triad */}
             <line x1={80} y1={650} x2={80} y2={575} stroke={PSYCHE_STROKE} strokeWidth={2.5} markerEnd="url(#psyche-arrow-black)" />
