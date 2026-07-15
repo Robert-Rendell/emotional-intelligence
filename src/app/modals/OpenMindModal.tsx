@@ -99,44 +99,122 @@ export default function OpenMindModal({ topic, onClose, closeButtonRef }: OpenMi
       wide
     >
       <p className={styles.modalDescription}>{topic.description}</p>
-      <div className={styles.diagramWrap}>
-        <svg viewBox="0 0 900 460" fontFamily="Arial, Helvetica, sans-serif">
-          <text x={450} y={35} fontSize={26} fontWeight={800} fill="#1a1a1a" textAnchor="middle">
-            Bloom&rsquo;s Taxonomy
-          </text>
 
-          {LEVELS.map((lvl) => (
-            <g key={lvl.key}>
-              <path d={lvl.path} fill={lvl.color} stroke="#1a1a1a" strokeWidth={1.5} />
-              <text
-                x={210}
-                y={lvl.midY}
-                fontSize={13}
-                fontWeight={800}
-                fill="#ffffff"
-                textAnchor="middle"
-                dominantBaseline="middle"
-              >
-                {lvl.label}
-              </text>
+      <div className={styles.modalSection}>
+        <ul className={styles.modalList}>
+          <li style={{ listStyle: "none" }}>✅ Always encourage your curiosity.</li>
+          <li style={{ listStyle: "none" }}>✅ Travel and do what the locals do.</li>
+          <li style={{ listStyle: "none" }}>✅ Learn about different cultures and belief systems.</li>
+          <li style={{ listStyle: "none" }}>
+            ✅ The world has changed since the birth of generative AI, get a subscription to learn
+            beyond school or higher education.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            ✅ You are unique and so is everyone else; everyone has their own life experience so
+            we are all wired differently. Categorisation is only useful to create order, but both
+            order and disorder are required to fully appreciate the nature of reality.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            ❌ Genders and sexuality are labels, which is useful in a social context but not
+            useful for self discovery.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            ❌ Medical diagnosis is a box that &ldquo;professionals&rdquo; use to try and
+            understand people; this helps in a scientific context but the tradeoff is usually a complete
+            empathy bypass and misinterpretation of reality, ultimately leading to inadequate
+            support.
+          </li>
+        </ul>
+      </div>
 
-              <rect
-                x={lvl.boxLeft}
-                y={lvl.boxTop}
-                width={BOX_RIGHT - lvl.boxLeft}
-                height={BOX_HEIGHT}
-                rx={6}
-                fill={lvl.tint}
-              />
-              <text x={lvl.boxLeft + 12} y={lvl.boxTop + 18} fontSize={13} fontWeight={800} fill="#1a1a1a">
-                {lvl.heading}
-              </text>
-              <text x={lvl.boxLeft + 12} y={lvl.boxTop + 35} fontSize={10.5} fill="#3a3a3a">
-                {lvl.sub}
-              </text>
-            </g>
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Bloom&apos;s Taxonomy</h3>
+        <p className={styles.modalDescription} style={{ marginBottom: "0.4rem" }}>
+          A six-level hierarchy of learning objectives, from simply recalling facts up to
+          creating original work.
+        </p>
+        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
+          Author: Benjamin Bloom (1956); revised by Lorin Anderson &amp; David Krathwohl (2001)
+        </p>
+      </div>
+      <div className={styles.bloomDesktopWrap}>
+        <div className={styles.diagramWrap}>
+          <svg viewBox="0 0 900 460" fontFamily="Arial, Helvetica, sans-serif">
+            <text x={450} y={35} fontSize={26} fontWeight={800} fill="#1a1a1a" textAnchor="middle">
+              Bloom&rsquo;s Taxonomy
+            </text>
+
+            {LEVELS.map((lvl) => (
+              <g key={lvl.key}>
+                <path d={lvl.path} fill={lvl.color} stroke="#1a1a1a" strokeWidth={1.5} />
+                <text
+                  x={210}
+                  y={lvl.midY}
+                  fontSize={13}
+                  fontWeight={800}
+                  fill="#ffffff"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                >
+                  {lvl.label}
+                </text>
+
+                <rect
+                  x={lvl.boxLeft}
+                  y={lvl.boxTop}
+                  width={BOX_RIGHT - lvl.boxLeft}
+                  height={BOX_HEIGHT}
+                  rx={6}
+                  fill={lvl.tint}
+                />
+                <text x={lvl.boxLeft + 12} y={lvl.boxTop + 18} fontSize={13} fontWeight={800} fill="#1a1a1a">
+                  {lvl.heading}
+                </text>
+                <text x={lvl.boxLeft + 12} y={lvl.boxTop + 35} fontSize={10.5} fill="#3a3a3a">
+                  {lvl.sub}
+                </text>
+              </g>
+            ))}
+          </svg>
+        </div>
+      </div>
+
+      <div className={styles.bloomMobileWrap}>
+        <div className={styles.diagramWrap}>
+          <svg viewBox="35 45 350 370" fontFamily="Arial, Helvetica, sans-serif">
+            {LEVELS.map((lvl, index) => (
+              <g key={lvl.key}>
+                <path d={lvl.path} fill={lvl.color} stroke="#1a1a1a" strokeWidth={1.5} />
+                <text
+                  x={210}
+                  y={lvl.midY}
+                  fontSize={22}
+                  fontWeight={800}
+                  fill="#ffffff"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                >
+                  {LEVELS.length - index}
+                </text>
+              </g>
+            ))}
+          </svg>
+        </div>
+
+        <ol className={styles.bloomList}>
+          {[...LEVELS].reverse().map((lvl, index) => (
+            <li key={lvl.key} className={styles.bloomListItem}>
+              <span className={styles.bloomBadge} style={{ background: lvl.color }}>
+                {index + 1}
+              </span>
+              <div>
+                <p className={styles.bloomListLabel}>{lvl.label}</p>
+                <p className={styles.bloomListHeading}>{lvl.heading}</p>
+                <p className={styles.bloomListSub}>{lvl.sub}</p>
+              </div>
+            </li>
           ))}
-        </svg>
+        </ol>
       </div>
     </ModalShell>
   );

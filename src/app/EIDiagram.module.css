@@ -627,6 +627,75 @@
   color: var(--ink-muted);
 }
 
+.bloomDesktopWrap {
+  display: block;
+}
+
+.bloomMobileWrap {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .bloomDesktopWrap {
+    display: none;
+  }
+
+  .bloomMobileWrap {
+    display: block;
+  }
+}
+
+.bloomList {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.bloomListItem {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.bloomBadge {
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.bloomListLabel {
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.bloomListHeading {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bloomListSub {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hubPulse,
   .arrowDraw,
