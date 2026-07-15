@@ -64,6 +64,7 @@ export default function StretchingModal({ topic, onClose, closeButtonRef }: Stre
         <p className={styles.modalDescription}>
           Yoga does not mean stretching, it means &ldquo;skill in action&rdquo;.
         </p>
+        <p className={styles.modalDescription}>The four types of Upanishadic yoga are:</p>
         <ul className={styles.modalList}>
           <li>
             <strong>Karma Yoga:</strong> the path of selfless action, doing your duty without

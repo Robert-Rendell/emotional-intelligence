@@ -13,6 +13,8 @@ import ConcentrationModal from "./modals/ConcentrationModal";
 import AwarenessModal from "./modals/AwarenessModal";
 import SufferingIsRelativeModal from "./modals/SufferingIsRelativeModal";
 import EmpathyModal from "./modals/EmpathyModal";
+import OverstimulationModal from "./modals/OverstimulationModal";
+import MoralityModal from "./modals/MoralityModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 export type Topic = {
@@ -31,46 +33,11 @@ const TOPICS: Topic[] = [
       "Frameworks and tools for recognizing which emotional zone you're in and steering back toward balance.",
   },
   {
-    id: "empathy",
-    label: "Empathy",
-    colorVar: "--c-empathy",
+    id: "sport-science",
+    label: "Sport Science / Biology / Neurochemicals of Happiness",
+    colorVar: "--c-sport",
     description:
-      "Sensing what other people feel and letting that understanding shape how you respond to them.",
-  },
-  {
-    id: "morality",
-    label: "Morality",
-    colorVar: "--c-morality",
-    description:
-      "The values and principles that guide judgments of right and wrong, fair and unfair.",
-  },
-  {
-    id: "overstimulation",
-    label: "Overstimulation",
-    colorVar: "--c-overstim",
-    description:
-      "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
-  },
-  {
-    id: "suffering-is-relative",
-    label: "Suffering is Relative",
-    colorVar: "--c-suffering",
-    description:
-      "Pain and hardship are felt relative to expectation and comparison, not on some fixed, absolute scale.",
-  },
-  {
-    id: "inflated-lifestyle",
-    label: "Inflated Lifestyle",
-    colorVar: "--c-inflated",
-    description:
-      "When spending, comfort, and expectations quietly climb to match income, closing the gap between what you have and what feels like enough.",
-  },
-  {
-    id: "open-mind",
-    label: "Open Mind / Education",
-    colorVar: "--c-openmind",
-    description:
-      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
+      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
   },
   {
     id: "stretching",
@@ -80,11 +47,11 @@ const TOPICS: Topic[] = [
       "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
   },
   {
-    id: "id-ego-superego",
-    label: "Id - Ego - Superego",
-    colorVar: "--c-idego",
+    id: "awareness",
+    label: "Awareness",
+    colorVar: "--c-awareness",
     description:
-      "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
+      "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
   },
   {
     id: "concentration",
@@ -94,18 +61,53 @@ const TOPICS: Topic[] = [
       "The capacity to direct attention deliberately and hold it there, even amid distraction.",
   },
   {
-    id: "awareness",
-    label: "Awareness",
-    colorVar: "--c-awareness",
+    id: "overstimulation",
+    label: "Overstimulation",
+    colorVar: "--c-overstim",
     description:
-      "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
+      "The overwhelm that follows too much sensory, emotional, or cognitive input at once.",
   },
   {
-    id: "sport-science",
-    label: "Sport Science / Biology / Neurochemicals of Happiness",
-    colorVar: "--c-sport",
+    id: "open-mind",
+    label: "Open Mind / Education",
+    colorVar: "--c-openmind",
     description:
-      "How movement, physiology, and brain chemistry — dopamine, serotonin, endorphins — shape mood and wellbeing.",
+      "Curiosity and a willingness to learn that keep the mind flexible, adaptable, and growing.",
+  },
+  {
+    id: "empathy",
+    label: "Empathy",
+    colorVar: "--c-empathy",
+    description:
+      "Sensing what other people feel and letting that understanding shape how you respond to them.",
+  },
+  {
+    id: "suffering-is-relative",
+    label: "Suffering is Relative",
+    colorVar: "--c-suffering",
+    description:
+      "Pain and hardship are felt relative to expectation and comparison, not on some fixed, absolute scale.",
+  },
+  {
+    id: "id-ego-superego",
+    label: "Id - Ego - Superego",
+    colorVar: "--c-idego",
+    description:
+      "Freud's model of the psyche: raw instinct, mediating reason, and internalized conscience in constant negotiation.",
+  },
+  {
+    id: "inflated-lifestyle",
+    label: "Inflated Lifestyle",
+    colorVar: "--c-inflated",
+    description:
+      "When spending, comfort, and expectations quietly climb to match income, closing the gap between what you have and what feels like enough.",
+  },
+  {
+    id: "morality",
+    label: "Morality",
+    colorVar: "--c-morality",
+    description:
+      "The values and principles that guide judgments of right and wrong, fair and unfair.",
   },
 ];
 
@@ -502,6 +504,18 @@ export default function EIDiagram() {
           />
         ) : modalTopic.id === "empathy" ? (
           <EmpathyModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "overstimulation" ? (
+          <OverstimulationModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "morality" ? (
+          <MoralityModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}

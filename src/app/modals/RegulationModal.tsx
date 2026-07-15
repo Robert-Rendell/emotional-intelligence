@@ -171,8 +171,11 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
             strokeWidth="2.5"
             strokeLinejoin="round"
           />
-          <text x="400" y="18" fill="#ffffff" fontSize="17" fontWeight="700" textAnchor="middle" dominantBaseline="middle" letterSpacing="0.5">
-            Creative Zone
+          <path id="creative-zone-arc" d="M 225.97 63.18 A 397 397 0 0 1 574.03 63.18" fill="none" />
+          <text fill="#ffffff" fontSize="17" fontWeight="700" textAnchor="middle" letterSpacing="0.5">
+            <textPath href="#creative-zone-arc" startOffset="50%">
+              Optimal Creative Zone
+            </textPath>
           </text>
 
           <g fill="#1a1a1a" fontWeight="700" textAnchor="middle">
