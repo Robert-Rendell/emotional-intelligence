@@ -22,42 +22,82 @@ export default function StretchingModal({ topic, onClose, closeButtonRef }: Stre
     >
       <p className={styles.modalDescription}>{topic.description}</p>
 
-      <div className={styles.modalSection} style={{ marginBottom: "1.25rem" }}>
-        <h4 className={styles.modalSectionTitle}>Effects on the Body</h4>
+      <div className={styles.modalSection}>
+        <h4 className={styles.modalSectionTitle}>Systems of the Body</h4>
         <ul className={styles.modalList}>
-          <li>
-            <strong>Endocrine system:</strong> twists, inversions, and deep breathing stimulate
-            the thyroid, adrenal, and pituitary glands, helping lower cortisol and balance
-            hormone production.
+          <li style={{ listStyle: "none" }}>
+            🧠 <strong>Nervous system:</strong> the brain, spinal cord, and nerves that sense the
+            environment and coordinate every other system&apos;s response to it.
           </li>
-          <li>
-            <strong>Nervous system:</strong> slow, controlled breathing activates the
-            parasympathetic (rest and digest) response, shifting the body out of fight-or-flight
-            and improving heart rate variability.
+          <li style={{ listStyle: "none" }}>
+            🧪 <strong>Endocrine system:</strong> glands (thyroid, adrenal, pituitary, and
+            others) that release hormones to regulate mood, metabolism, growth, and stress
+            response.
           </li>
-          <li>
-            <strong>Cardiovascular system:</strong> regular practice lowers resting blood
-            pressure and heart rate and improves circulation.
+          <li style={{ listStyle: "none" }}>
+            ❤️ <strong>Cardiovascular system:</strong> the heart and blood vessels that pump
+            blood, delivering oxygen and nutrients around the body.
           </li>
-          <li>
-            <strong>Musculoskeletal system:</strong> builds flexibility, joint mobility, and
-            functional strength while releasing chronic muscular tension.
+          <li style={{ listStyle: "none" }}>
+            🫁 <strong>Respiratory system:</strong> the lungs and airways responsible for gas
+            exchange &mdash; taking in oxygen and expelling carbon dioxide.
           </li>
-          <li>
-            <strong>Respiratory system:</strong> increases lung capacity and trains more
-            efficient, diaphragmatic breathing.
+          <li style={{ listStyle: "none" }}>
+            🦴 <strong>Musculoskeletal system:</strong> muscles, bones, and joints that give the
+            body structure, protection, and the ability to move.
           </li>
-          <li>
-            <strong>Immune and digestive systems:</strong> lower stress hormone levels reduce
-            systemic inflammation, and twisting postures stimulate the digestive organs.
+          <li style={{ listStyle: "none" }}>
+            🍽️ <strong>Digestive system:</strong> the gut and associated organs that break down
+            food and absorb nutrients.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🛡️ <strong>Immune system:</strong> the body&apos;s defense network against
+            infection, injury, and disease.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🧴 <strong>Integumentary system:</strong> skin, hair, and nails, which protect the
+            body and help regulate temperature.
           </li>
         </ul>
       </div>
 
-      <YouTubeEmbed src="https://www.youtube.com/embed/BPK9WNtpBgk?si=qDFDmIxT1DgivQgc" />
-      <p className={styles.modalQuoteCite} style={{ textAlign: "left" }}>
-        Author: Yoga with Adriene
-      </p>
+      <div className={styles.modalSection} style={{ marginBottom: "1.25rem" }}>
+        <h4 className={styles.modalSectionTitle}>Stretching Effects on the Body</h4>
+        <ul className={styles.modalList}>
+          <li style={{ listStyle: "none" }}>
+            🧪 <strong>Endocrine system:</strong> twists, inversions, and deep breathing
+            stimulate the thyroid, adrenal, and pituitary glands, helping lower cortisol and
+            balance hormone production.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🧠 <strong>Nervous system:</strong> slow, controlled breathing activates the
+            parasympathetic (rest and digest) response, shifting the body out of fight-or-flight
+            and improving heart rate variability.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            ❤️ <strong>Cardiovascular system:</strong> regular practice lowers resting blood
+            pressure and heart rate and improves circulation.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🦴 <strong>Musculoskeletal system:</strong> builds flexibility, joint mobility, and
+            functional strength while releasing chronic muscular tension.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🫁 <strong>Respiratory system:</strong> increases lung capacity and trains more
+            efficient, diaphragmatic breathing.
+          </li>
+          <li style={{ listStyle: "none" }}>
+            🛡️🍽️ <strong>Immune and digestive systems:</strong> lower stress hormone levels
+            reduce systemic inflammation, and twisting postures stimulate the digestive organs.
+          </li>
+        </ul>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Yoga with Adriene</h3>
+        <YouTubeEmbed src="https://www.youtube.com/embed/BPK9WNtpBgk?si=qDFDmIxT1DgivQgc" />
+        <p className={styles.modalQuoteCite}>Author: Yoga with Adriene</p>
+      </div>
 
       <div className={styles.modalSection} style={{ marginTop: "1.25rem" }}>
         <h4 className={styles.modalSectionTitle}>The Four Paths of Yoga</h4>

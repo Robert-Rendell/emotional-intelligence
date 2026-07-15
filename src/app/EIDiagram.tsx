@@ -11,7 +11,7 @@ import OpenMindModal from "./modals/OpenMindModal";
 import IdEgoSuperegoModal from "./modals/IdEgoSuperegoModal";
 import ConcentrationModal from "./modals/ConcentrationModal";
 import AwarenessModal from "./modals/AwarenessModal";
-import SufferingIsRelativeModal from "./modals/SufferingIsRelativeModal";
+import MotivationModal from "./modals/MotivationModal";
 import EmpathyModal from "./modals/EmpathyModal";
 import OverstimulationModal from "./modals/OverstimulationModal";
 import MoralityModal from "./modals/MoralityModal";
@@ -82,11 +82,11 @@ const TOPICS: Topic[] = [
       "Sensing what other people feel and letting that understanding shape how you respond to them.",
   },
   {
-    id: "suffering-is-relative",
-    label: "Suffering is Relative",
-    colorVar: "--c-suffering",
+    id: "motivation",
+    label: "Self Actualisation / Motivation",
+    colorVar: "--c-motivation",
     description:
-      "Pain and hardship are felt relative to expectation and comparison, not on some fixed, absolute scale.",
+      "What drives people to act, from meeting basic needs to pursuing growth, meaning, and self-actualisation.",
   },
   {
     id: "id-ego-superego",
@@ -496,8 +496,8 @@ export default function EIDiagram() {
             onClose={closeModal}
             closeButtonRef={closeButtonRef}
           />
-        ) : modalTopic.id === "suffering-is-relative" ? (
-          <SufferingIsRelativeModal
+        ) : modalTopic.id === "motivation" ? (
+          <MotivationModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}

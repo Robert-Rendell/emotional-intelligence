@@ -61,6 +61,20 @@ export default function EmpathyModal({ topic, onClose, closeButtonRef }: Empathy
           ))}
         </ul>
       </div>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Suffering is Relative</h3>
+        <blockquote className={styles.modalQuote}>
+          &ldquo;A man&apos;s suffering is similar to the behavior of gas. If a certain quantity
+          of gas is pumped into an empty chamber, it will fill the chamber completely and
+          evenly, no matter how big the chamber. Thus suffering completely fills the human soul
+          and conscious mind, no matter whether the suffering is great or little. Therefore the
+          &lsquo;size&rsquo; of human suffering is absolutely relative.&rdquo;
+          <cite className={styles.modalQuoteCite}>
+            &mdash; Viktor Frankl, Man&apos;s Search for Meaning
+          </cite>
+        </blockquote>
+      </div>
     </ModalShell>
   );
 }
