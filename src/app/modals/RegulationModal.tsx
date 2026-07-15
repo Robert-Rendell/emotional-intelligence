@@ -21,6 +21,22 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
       wide
     >
       <p className={styles.modalDescription}>{topic.description}</p>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>The Zones of Regulation</h3>
+        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
+          Author:{" "}
+          <a
+            className={styles.modalLink}
+            href="https://zonesofregulation.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Leah Kuypers
+          </a>
+        </p>
+      </div>
+
       <div className={styles.diagramWrap}>
         <svg viewBox="0 0 800 450" fontFamily="Arial, Helvetica, sans-serif">
           <defs>

@@ -81,6 +81,22 @@ export default function SportScienceModal({
       colorVar={topic.colorVar}
     >
       <p className={styles.modalDescription}>{topic.description}</p>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>The Neurochemicals of Happiness</h3>
+        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
+          Author:{" "}
+          <a
+            className={styles.modalLink}
+            href="https://www.psychologytoday.com/gb/blog/the-athletes-way/201211/the-neurochemicals-of-happiness"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Christopher Bergland (Psychology Today)
+          </a>
+        </p>
+      </div>
+
       <div className={styles.modalTableWrap}>
         <table className={styles.neuroTable}>
           <thead>
