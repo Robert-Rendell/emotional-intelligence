@@ -696,13 +696,113 @@
   line-height: 1.5;
 }
 
+.zoneGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.zoneCard {
+  border: 1px solid var(--ring);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.zoneCardHeader {
+  padding: 0.55rem 0.7rem;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.zoneCardBody {
+  margin: 0;
+  padding: 0.7rem 0.9rem 0.7rem 1.5rem;
+  list-style: disc;
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+}
+
+.zoneCardBody li + li {
+  margin-top: 0.2rem;
+}
+
+.moodArrow {
+  fill: none;
+  stroke: #6b6b6b;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 5 4;
+  animation: moodFlow 2.8s linear infinite;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes moodFlow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+.moodDial {
+  animation:
+    moodDial var(--dial-duration, 2.6s) ease-in-out infinite,
+    moodPresence var(--presence-duration, 5.2s) ease-in-out infinite;
+  animation-delay: var(--delay, 0ms), var(--presence-delay, 0ms);
+}
+
+@keyframes moodDial {
+  0%,
+  100% {
+    transform: rotate(var(--from));
+  }
+  50% {
+    transform: rotate(var(--to));
+  }
+}
+
+@keyframes moodPresence {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  70%,
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.timeDot {
+  animation: timeSweep 18s linear infinite;
+}
+
+@keyframes timeSweep {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(120px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hubPulse,
   .arrowDraw,
   .nodeGroup,
   .nodePulse,
   .pinchDot,
-  .videoSpinner {
+  .videoSpinner,
+  .moodArrow,
+  .moodDial,
+  .timeDot {
     animation: none !important;
   }
   .nodeGroup,

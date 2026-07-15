@@ -1,6 +1,6 @@
 "use client";
 
-import type { RefObject } from "react";
+import type { CSSProperties, RefObject } from "react";
 import ModalShell from "./ModalShell";
 import styles from "../EIDiagram.module.css";
 import type { Topic } from "../EIDiagram";
@@ -10,6 +10,78 @@ type RegulationModalProps = {
   onClose: () => void;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
 };
+
+const ZONES = [
+  {
+    header: "Angry, Panicked, Very intense feelings",
+    color: "#d64545",
+    textColor: "#ffffff",
+    actions: [
+      "Belly Breathing",
+      "Meditation",
+      "Colouring",
+      "Sit on a bean bag (or in a comfy spot)",
+      "Stretching (yoga)",
+    ],
+  },
+  {
+    header: "Frustrated, Confused, Stressed",
+    color: "#e08a2e",
+    textColor: "#ffffff",
+    actions: [
+      "Belly Breathing",
+      "Meditation",
+      "Stress ball / tactile play",
+      "Have a snack",
+      "Colouring",
+    ],
+  },
+  {
+    header: "Excited, Anxious, Silly, Nervous",
+    color: "#eece2e",
+    textColor: "#1a1a1a",
+    actions: [
+      "Drink (water)",
+      "Belly breathing",
+      "Wall pushups",
+      "Go for a short run or jog",
+      "Stretching (yoga)",
+      "Jumping / bouncing",
+    ],
+  },
+  {
+    header: "Happy, Alert, Engaged",
+    color: "#8bc34a",
+    textColor: "#ffffff",
+    actions: ["Conversation", "Praise"],
+  },
+  {
+    header: "Calm, Content, Focused",
+    color: "#f2a0a0",
+    textColor: "#1a1a1a",
+    actions: ["Conversation", "Praise"],
+  },
+  {
+    header: "Sad, Tired, Bored",
+    color: "#6fb3e0",
+    textColor: "#ffffff",
+    actions: [
+      "Jumping / Bouncing",
+      "Push ups",
+      "Climbing",
+      "Drink (water)",
+      "Have a snack",
+      "Reading",
+      "Singing / Music",
+    ],
+  },
+  {
+    header: "Upset, Distressed",
+    color: "#7a8ba0",
+    textColor: "#ffffff",
+    actions: ["Sit on a bean bag (or in a comfy spot)", "Take a walk", "Go for a short run or jog"],
+  },
+];
 
 export default function RegulationModal({ topic, onClose, closeButtonRef }: RegulationModalProps) {
   return (
@@ -76,6 +148,9 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
               <rect width="12" height="12" fill="#4b1d63" />
               <line x1="0" y1="0" x2="0" y2="12" stroke="#f2eaf5" strokeWidth="2" />
             </pattern>
+            <marker id="mood-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#6b6b6b" />
+            </marker>
           </defs>
 
           <g stroke="#1a1a1a" strokeWidth="3" strokeLinejoin="round">
@@ -103,8 +178,8 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
           <g fill="#1a1a1a" fontWeight="700" textAnchor="middle">
             <text x="156.34" y="394.39" fontSize="13" transform="rotate(-84 156.34 394.39)">Angry</text>
             <text x="181.70" y="308.77" fontSize="16" transform="rotate(-63 181.70 308.77)">Frustrated</text>
-            <text x="272.87" y="251.29" fontSize="24" transform="rotate(-37 272.87 251.29)">Excited</text>
-            <text x="191.62" y="143.47" fontSize="10" transform="rotate(-37 191.62 143.47)">Anxious</text>
+            <text x="261" y="235" fontSize="24" transform="rotate(-37 261 235)">Excited</text>
+            <text x="191.62" y="143.47" fontSize="16" transform="rotate(-37 191.62 143.47)">Anxious</text>
 
             <text x="400" y="165" fontSize="30">Happy</text>
             <text x="400" y="191" fontSize="14" fontWeight="600">(Learning Zone)</text>
@@ -117,7 +192,85 @@ export default function RegulationModal({ topic, onClose, closeButtonRef }: Regu
 
             <text x="643.17" y="390.14" fontSize="15" transform="rotate(83 643.17 390.14)">Upset</text>
           </g>
+
+          <g>
+            <g
+              className={styles.moodDial}
+              style={{
+                transformOrigin: "400px 395px",
+                "--from": "-75deg",
+                "--to": "-25deg",
+                "--delay": "0ms",
+                "--dial-duration": "4.8s",
+                "--presence-delay": "0ms",
+                "--presence-duration": "9.5s",
+              } as CSSProperties}
+            >
+              <line x1={400} y1={395} x2={400} y2={315} className={styles.moodArrow} markerEnd="url(#mood-arrowhead)" />
+            </g>
+            <g
+              className={styles.moodDial}
+              style={{
+                transformOrigin: "400px 395px",
+                "--from": "-25deg",
+                "--to": "25deg",
+                "--delay": "400ms",
+                "--dial-duration": "5.6s",
+                "--presence-delay": "3100ms",
+                "--presence-duration": "11s",
+              } as CSSProperties}
+            >
+              <line x1={400} y1={395} x2={400} y2={315} className={styles.moodArrow} markerEnd="url(#mood-arrowhead)" />
+            </g>
+            <g
+              className={styles.moodDial}
+              style={{
+                transformOrigin: "400px 395px",
+                "--from": "25deg",
+                "--to": "75deg",
+                "--delay": "800ms",
+                "--dial-duration": "4.0s",
+                "--presence-delay": "6200ms",
+                "--presence-duration": "8.5s",
+              } as CSSProperties}
+            >
+              <line x1={400} y1={395} x2={400} y2={315} className={styles.moodArrow} markerEnd="url(#mood-arrowhead)" />
+            </g>
+          </g>
+
+          <g fontSize="7" fill="#6b6b6b" textAnchor="middle">
+            <line x1={340} y1={408} x2={472} y2={408} stroke="#6b6b6b" strokeWidth={1.5} markerEnd="url(#mood-arrowhead)" />
+            <line x1={340} y1={406} x2={340} y2={411} stroke="#6b6b6b" strokeWidth={1} />
+            <line x1={365} y1={406} x2={365} y2={411} stroke="#6b6b6b" strokeWidth={1} />
+            <line x1={400} y1={406} x2={400} y2={411} stroke="#6b6b6b" strokeWidth={1} />
+            <line x1={425} y1={406} x2={425} y2={411} stroke="#6b6b6b" strokeWidth={1} />
+            <line x1={460} y1={406} x2={460} y2={411} stroke="#6b6b6b" strokeWidth={1} />
+            <text x={340} y={420}>0</text>
+            <text x={365} y={420}>6</text>
+            <text x={400} y={420}>12</text>
+            <text x={425} y={420}>18</text>
+            <text x={460} y={420}>24</text>
+            <circle r={3} cx={340} cy={408} fill="#6b6b6b" className={styles.timeDot} />
+          </g>
         </svg>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h4 className={styles.modalSectionTitle}>Strategies by Zone</h4>
+        <div className={styles.zoneGrid}>
+          {ZONES.map((zone) => (
+            <div key={zone.header} className={styles.zoneCard}>
+              <div className={styles.zoneCardHeader} style={{ background: zone.color, color: zone.textColor }}>
+                {zone.header}
+              </div>
+              <ul className={styles.zoneCardBody}>
+                {zone.actions.map((action) => (
+                  <li key={action}>{action}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </ModalShell>
   );

@@ -22,7 +22,7 @@ const NEUROCHEMICAL_ROWS = [
     letter: "E",
     name: "Endo-cannabinoids",
     function: "Relaxation / Anti-Anxiety",
-    howTo: "Sustained, regular exercise.",
+    howTo: "Sustained, regular cardiovascular exercise.",
   },
   {
     letter: "D",
