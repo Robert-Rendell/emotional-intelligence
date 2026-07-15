@@ -12,6 +12,7 @@ import IdEgoSuperegoModal from "./modals/IdEgoSuperegoModal";
 import ConcentrationModal from "./modals/ConcentrationModal";
 import AwarenessModal from "./modals/AwarenessModal";
 import SufferingIsRelativeModal from "./modals/SufferingIsRelativeModal";
+import EmpathyModal from "./modals/EmpathyModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 export type Topic = {
@@ -295,6 +296,15 @@ export default function EIDiagram() {
         <text x={153} y={24} fontSize={16} fontWeight={700} fill="var(--ink-faint)" textAnchor="middle" dominantBaseline="middle">
           Deep Breathing
         </text>
+        <text
+          x={VIEW_W - 40}
+          y={VIEW_H - 36}
+          fontSize={13}
+          fill="var(--ink-faint)"
+          textAnchor="end"
+        >
+          Copyright &copy; Rob Rendell 2026
+        </text>
 
         {geometry.map(({ topic, arrowStart, arrowEnd, control, pathLength }, i) => (
           <path
@@ -486,6 +496,12 @@ export default function EIDiagram() {
           />
         ) : modalTopic.id === "suffering-is-relative" ? (
           <SufferingIsRelativeModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "empathy" ? (
+          <EmpathyModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}
