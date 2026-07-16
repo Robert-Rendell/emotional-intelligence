@@ -6,6 +6,7 @@ import { TOPICS, type Topic } from "./topics";
 
 export type { Topic };
 import HubModal from "./modals/HubModal";
+import QRCodeModal from "./modals/QRCodeModal";
 import RegulationModal from "./modals/RegulationModal";
 import InflatedLifestyleModal from "./modals/InflatedLifestyleModal";
 import SportScienceModal from "./modals/SportScienceModal";
@@ -124,7 +125,7 @@ function buildGeometry(): Geometry[] {
   });
 }
 
-type ModalTarget = { kind: "topic"; id: string } | { kind: "hub" };
+type ModalTarget = { kind: "topic"; id: string } | { kind: "hub" } | { kind: "qr" };
 
 type EIDiagramProps = {
   initialTopicId?: string;
@@ -179,7 +180,8 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
 
   const modalTopic = modal?.kind === "topic" ? TOPICS.find((t) => t.id === modal.id) ?? null : null;
   const isHubModal = modal?.kind === "hub";
-  const modalKey = modal ? (modal.kind === "hub" ? "hub" : modal.id) : null;
+  const isQrModal = modal?.kind === "qr";
+  const modalKey = modal ? (modal.kind === "topic" ? modal.id : modal.kind) : null;
 
   const openModal = (target: ModalTarget, trigger: SVGElement) => {
     lastTriggerRef.current = trigger;
@@ -239,6 +241,7 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
           role="button"
           aria-haspopup="dialog"
           aria-label="Concentration: The capacity to direct attention deliberately and hold it there, even amid distraction."
+          className={styles.iconButton}
           style={{ cursor: "pointer" }}
           onMouseEnter={stopAutoHighlight}
           onFocus={stopAutoHighlight}
@@ -258,6 +261,42 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
           <text x={153} y={24} fontSize={16} fontWeight={700} fill="var(--ink-faint)" textAnchor="middle" dominantBaseline="middle">
             Deep Breathing
           </text>
+        </g>
+        <g
+          tabIndex={0}
+          role="button"
+          aria-haspopup="dialog"
+          aria-label="Open QR code to share this site"
+          className={styles.iconButton}
+          style={{ cursor: "pointer" }}
+          onMouseEnter={stopAutoHighlight}
+          onFocus={stopAutoHighlight}
+          onClick={(e) => {
+            stopAutoHighlight();
+            openModal({ kind: "qr" }, e.currentTarget);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              stopAutoHighlight();
+              openModal({ kind: "qr" }, e.currentTarget);
+            }
+          }}
+        >
+          <rect x={1224} y={1074} width={36} height={36} rx={8} fill="var(--surface)" />
+          <g fill="none" stroke="var(--ink-faint)" strokeWidth={1.5}>
+            <rect x={1230} y={1080} width={8} height={8} />
+            <rect x={1246} y={1080} width={8} height={8} />
+            <rect x={1230} y={1096} width={8} height={8} />
+          </g>
+          <g fill="var(--ink-faint)">
+            <rect x={1233} y={1083} width={2} height={2} />
+            <rect x={1249} y={1083} width={2} height={2} />
+            <rect x={1233} y={1099} width={2} height={2} />
+            <rect x={1246} y={1096} width={2} height={2} />
+            <rect x={1250} y={1100} width={2} height={2} />
+            <rect x={1242} y={1092} width={2} height={2} />
+          </g>
         </g>
         <text
           x={VIEW_W - 40}
@@ -408,6 +447,8 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
 
       {isHubModal ? (
         <HubModal onClose={closeModal} closeButtonRef={closeButtonRef} />
+      ) : isQrModal ? (
+        <QRCodeModal onClose={closeModal} closeButtonRef={closeButtonRef} />
       ) : modalTopic ? (
         modalTopic.id === "regulation" ? (
           <RegulationModal

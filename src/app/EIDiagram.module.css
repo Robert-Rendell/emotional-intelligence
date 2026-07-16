@@ -136,6 +136,10 @@
   outline: none;
 }
 
+.iconButton:focus {
+  outline: none;
+}
+
 .hub text {
   fill: var(--ink);
   font-weight: 700;
