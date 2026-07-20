@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Emotional Intelligence",
-  description: "A static Next.js app",
+  description: "Emotional intelligence is the foundation for all schools of thought and learning... and possibly IQ",
 };
 
 export default function RootLayout({
