@@ -232,7 +232,7 @@ export default function ConcentrationModal({ topic, onClose, closeButtonRef }: C
             </text>
 
             <text x={745} y={805} fontSize={11} fill="var(--ink-faint)" textAnchor="end">
-              Copyright &copy; Robert Rendell 2026
+              Copyright &copy; James Paterson 2026
             </text>
           </svg>
         </div>
