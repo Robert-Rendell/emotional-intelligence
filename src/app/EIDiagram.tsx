@@ -19,6 +19,7 @@ import MotivationModal from "./modals/MotivationModal";
 import EmpathyModal from "./modals/EmpathyModal";
 import OverstimulationModal from "./modals/OverstimulationModal";
 import MoralityModal from "./modals/MoralityModal";
+import CogitoErgoSumModal from "./modals/CogitoErgoSumModal";
 import DefaultTopicModal from "./modals/DefaultTopicModal";
 
 const VIEW_W = 1300;
@@ -518,6 +519,12 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
           />
         ) : modalTopic.id === "morality" ? (
           <MoralityModal
+            topic={modalTopic}
+            onClose={closeModal}
+            closeButtonRef={closeButtonRef}
+          />
+        ) : modalTopic.id === "cogito-ergo-sum" ? (
+          <CogitoErgoSumModal
             topic={modalTopic}
             onClose={closeModal}
             closeButtonRef={closeButtonRef}

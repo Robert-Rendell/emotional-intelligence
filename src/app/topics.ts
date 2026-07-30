@@ -90,4 +90,11 @@ export const TOPICS: Topic[] = [
     description:
       "The values and principles that guide judgments of right and wrong, fair and unfair.",
   },
+  {
+    id: "cogito-ergo-sum",
+    label: "Cogito, Ergo Sum",
+    colorVar: "--c-cogito",
+    description:
+      "Descartes' proof that the very act of thinking confirms existence — and how a single thought cascades through words and actions into habit, character, and destiny.",
+  },
 ];

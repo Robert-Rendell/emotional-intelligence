@@ -18,6 +18,7 @@
   --c-stretch: #00c3c5;
   --c-motivation: #b1b059;
   --c-inflated: #753c74;
+  --c-cogito: #a67c27;
 
   --psyche-blue: #2a5ed4;
 
@@ -51,6 +52,7 @@
     --c-stretch: #06a3a5;
     --c-motivation: #96943c;
     --c-inflated: #844a83;
+    --c-cogito: #c99a3f;
 
     --psyche-blue: var(--c-concentration);
   }
