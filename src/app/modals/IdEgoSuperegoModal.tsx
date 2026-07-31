@@ -170,6 +170,96 @@ export default function IdEgoSuperegoModal({
           </svg>
         </div>
       </div>
+
+      <hr className={styles.modalDivider} />
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Ego Disassociation</h3>
+        <p className={styles.modalDescription}>
+          Ego disassociation is the practice of loosening identification with the ego (the
+          &ldquo;I-maker&rdquo;, or <em>ahamkara</em>) &mdash; the part of the mind that claims
+          ownership of thoughts, actions, and outcomes. The Bhagavad Gita, the Dhammapada, and
+          the Upanishads each describe a piece of this, and read together they sketch out a rough
+          sequence:
+        </p>
+        <ol className={styles.modalOrderedList}>
+          <li>
+            <strong>Recognize the doer-illusion</strong> &mdash; the Bhagavad Gita (3.27) teaches
+            that all actions are carried out by the gunas (qualities) of nature, while the
+            ego-deluded mind thinks &ldquo;I am the doer.&rdquo; Disassociation starts with
+            noticing that habit: the ego claiming credit and ownership over everything that
+            happens.
+          </li>
+          <li>
+            <strong>Act without attachment to results</strong> &mdash; the Gita&apos;s
+            best-known verse (2.47) holds that you have a right to your actions but never to
+            their fruits. Practicing action without craving a particular outcome
+            (<em>nishkama karma</em>) loosens the ego&apos;s grip, since most of its anxiety
+            comes from needing things to turn out a specific way.
+          </li>
+          <li>
+            <strong>Stop claiming ownership</strong> &mdash; the Dhammapada (62) pushes further:
+            &ldquo;&lsquo;Sons have I, wealth have I&rsquo;: so the fool troubles himself. He is
+            not even his own &mdash; how much less sons, how much less wealth?&rdquo; It
+            questions not just ownership of outcomes but the idea that anything, including the
+            body and mind, belongs to a fixed &ldquo;I&rdquo;.
+          </li>
+          <li>
+            <strong>Negate every false identification</strong> &mdash; the Upanishads
+            (Brihadaranyaka Upanishad) describe this with <em>neti neti</em>, &ldquo;not this,
+            not this&rdquo;: stripping away every label the ego clings to &mdash; body, role,
+            personality, name &mdash; none of which is the true Self.
+          </li>
+          <li>
+            <strong>Recognize what remains</strong> &mdash; once the false identifications are
+            negated, the Chandogya Upanishad (6.8.7) names what&apos;s left with
+            <em> tat tvam asi</em>, &ldquo;thou art that&rdquo;: identity with the ultimate
+            reality, not the small, defensive ego.
+          </li>
+          <li>
+            <strong>Conquer the self, not others</strong> &mdash; the Dhammapada (103) puts it
+            plainly: &ldquo;Though one may conquer a thousand times a thousand men in battle, yet
+            he indeed is the noblest victor who conquers himself.&rdquo; The real contest was
+            always internal.
+          </li>
+          <li>
+            <strong>Settle into steady wisdom</strong> &mdash; the Gita (2.55&ndash;57) describes
+            the resulting state as <em>sthitaprajna</em>, &ldquo;steady wisdom&rdquo;: someone
+            who has given up desires born of mental imagining, is undisturbed by sorrow,
+            unexcited by pleasure, and free of fear and anger.
+          </li>
+        </ol>
+        <p className={styles.modalNote}>
+          These are three independent bodies of scripture, not one unified system &mdash; the
+          sequence above is a synthesis for the purpose of this mind-map, not a step list any
+          single text lays out start to finish.
+        </p>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h4 className={styles.modalSectionTitle}>What it feels like, before and after</h4>
+        <div className={styles.modalLevelGroup}>
+          <div className={styles.modalLevelCard}>
+            <h4 className={styles.modalSectionTitle}>Identified with the ego</h4>
+            <p className={styles.modalDescription} style={{ marginBottom: 0 }}>
+              Every compliment lands as validation and every criticism as an attack, because
+              &ldquo;you&rdquo; feels inseparable from your reputation, performance, and
+              possessions. Thoughts loop around comparison &mdash; better than, worse than
+              &mdash; and ordinary setbacks feel like threats to your existence rather than
+              events that just happened.
+            </p>
+          </div>
+          <div className={styles.modalLevelCard}>
+            <h4 className={styles.modalSectionTitle}>Disassociated from the ego</h4>
+            <p className={styles.modalDescription} style={{ marginBottom: 0 }}>
+              Praise and blame still register, but they land on the ego rather than on
+              &ldquo;you&rdquo; &mdash; there&apos;s a witnessing awareness a half-step back from
+              the reaction. Outcomes matter less than the quality of the action itself, and
+              setbacks are inconvenient rather than existential.
+            </p>
+          </div>
+        </div>
+      </div>
     </ModalShell>
   );
 }

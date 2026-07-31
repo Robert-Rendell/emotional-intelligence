@@ -28,11 +28,11 @@ export const TOPICS: Topic[] = [
       "What drives people to act, from meeting basic needs to pursuing growth, meaning, and self-actualisation.",
   },
   {
-    id: "stretching",
-    label: "Stretching",
-    colorVar: "--c-stretch",
+    id: "concentration",
+    label: "Concentration",
+    colorVar: "--c-concentration",
     description:
-      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
+      "The capacity to direct attention deliberately and hold it there, even amid distraction.",
   },
   {
     id: "awareness",
@@ -42,11 +42,11 @@ export const TOPICS: Topic[] = [
       "Noticing your own emotions, triggers, and patterns of thought as they arise, not just after the fact.",
   },
   {
-    id: "concentration",
-    label: "Concentration",
-    colorVar: "--c-concentration",
+    id: "stretching",
+    label: "Stretching",
+    colorVar: "--c-stretch",
     description:
-      "The capacity to direct attention deliberately and hold it there, even amid distraction.",
+      "Deliberate lengthening and mobility work that releases tension and reconnects body and mind.",
   },
   {
     id: "overstimulation",

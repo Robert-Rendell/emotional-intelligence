@@ -49,20 +49,6 @@ export default function EmpathyModal({ topic, onClose, closeButtonRef }: Empathy
       <p className={styles.modalDescription}>{topic.description}</p>
 
       <div className={styles.modalSection}>
-        <h3 className={styles.modalSectionTitle}>Bully Behavioral Types</h3>
-        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
-          Author: Barbara Coloroso (writing: The Bully, The Bullied, and the Bystander)
-        </p>
-        <ul className={styles.modalList}>
-          {BULLY_TYPES.map((type) => (
-            <li key={type.name}>
-              <strong>{type.name}:</strong> {type.description}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className={styles.modalSection}>
         <h3 className={styles.modalSectionTitle}>Suffering is Relative</h3>
         <blockquote className={styles.modalQuote}>
           &ldquo;A man&apos;s suffering is similar to the behavior of gas. If a certain quantity
@@ -74,6 +60,20 @@ export default function EmpathyModal({ topic, onClose, closeButtonRef }: Empathy
             &mdash; Viktor Frankl, Man&apos;s Search for Meaning
           </cite>
         </blockquote>
+      </div>
+
+      <div className={styles.modalSection}>
+        <h3 className={styles.modalSectionTitle}>Bully Behavioral Types</h3>
+        <p className={styles.modalQuoteCite} style={{ marginTop: 0 }}>
+          Author: Barbara Coloroso (writing: The Bully, The Bullied, and the Bystander)
+        </p>
+        <ul className={styles.modalList}>
+          {BULLY_TYPES.map((type) => (
+            <li key={type.name}>
+              <strong>{type.name}:</strong> {type.description}
+            </li>
+          ))}
+        </ul>
       </div>
     </ModalShell>
   );
