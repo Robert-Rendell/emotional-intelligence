@@ -24,7 +24,7 @@ const PSYCHE_CONCEPTS = [
   {
     term: "Atman",
     description:
-      "The inner self beyond the ego (e.g. desires, pride) and emotions (gunas), shared by all living things.",
+      "The inner self beyond the ego (e.g. desires, pride) and emotions (gunas), present in all living beings.",
   },
   {
     term: "Brahman",
