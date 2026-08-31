@@ -299,16 +299,6 @@ export default function EIDiagram({ initialTopicId }: EIDiagramProps) {
             <rect x={1242} y={1092} width={2} height={2} />
           </g>
         </g>
-        <text
-          x={VIEW_W - 40}
-          y={VIEW_H - 36}
-          fontSize={13}
-          fill="var(--ink-faint)"
-          textAnchor="end"
-        >
-          Copyright &copy; James Paterson 2026
-        </text>
-
         {geometry.map(({ topic, arrowStart, arrowEnd, control, pathLength }, i) => (
           <path
             key={`arrow-${topic.id}`}

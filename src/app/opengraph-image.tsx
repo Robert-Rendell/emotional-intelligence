@@ -7,7 +7,6 @@ export const contentType = "image/png";
 const STROKE = "#0b0b0b";
 const BLUE = "#2a5ed4";
 const ORANGE = "#e8871e";
-const FAINT = "#c5c3bb";
 const SURFACE = "#fcfcfb";
 
 // satori (next/og) can't render <text> inside a raw <svg> pass-through, so the
@@ -132,9 +131,6 @@ export default function OpengraphImage() {
         <Label x={px(30)} y={py(725)} fontSize={fs(24)}>z</Label>
         <Label x={px(671)} y={py(515)} fontSize={fs(20)} align="middle" color={ORANGE} weight={700} rotate={-90}>
           deep breathing
-        </Label>
-        <Label x={px(745)} y={py(805)} fontSize={fs(11)} align="end" color={FAINT}>
-          Copyright © James Paterson 2026
         </Label>
       </div>
     ),
